@@ -1,0 +1,13 @@
+product_id,product_name,product_type,price_usd,available_from,purchase_cycle_days
+P001,Daily Supply Pack,daily,0.99,2024-01-01,1
+P002,Weekly Growth Pack,weekly,4.99,2024-01-01,7
+P003,Monthly Mission Pass,monthly_pass,14.99,2024-01-01,28
+P004,Seasonal Event Pass,seasonal_pass,19.99,2024-06-26,21
+P005,30-Day Premium Currency Pass,currency_subscription,7.99,2024-01-01,30
+P006,Equipment Choice Pack,equipment,24.99,2024-01-01,14
+P007,Account Growth Booster,growth_booster,9.99,2024-01-01,14
+P008,PvE Growth Subscription,pve_subscription,12.99,2025-05-15,30
+P009,Limited Event Bundle,limited,29.99,2024-01-01,21
+P010,Small Premium Currency Pack,currency_topup,4.99,2024-01-01,1
+P011,Standard Premium Currency Pack,currency_topup,19.99,2024-01-01,1
+P012,Large Premium Currency Pack,currency_topup,79.99,2024-01-01,1

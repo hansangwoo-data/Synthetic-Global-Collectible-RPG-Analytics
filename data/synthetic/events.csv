@@ -1,0 +1,55 @@
+event_id,event_name,event_type,region,start_date,end_date,narrative
+EVT001,Global Launch,launch,KR,2024-01-01,2024-01-21,Worldwide release with launch missions and starter rewards.
+EVT001,Global Launch,launch,JP,2024-01-01,2024-01-21,Worldwide release with launch missions and starter rewards.
+EVT001,Global Launch,launch,GLOBAL_WEST,2024-01-01,2024-01-21,Worldwide release with launch missions and starter rewards.
+EVT002,Half-Anniversary Raid,milestone,KR,2024-06-26,2024-07-09,Six-month celebration and limited cooperative PvE boss.
+EVT002,Half-Anniversary Raid,milestone,JP,2024-06-26,2024-07-09,Six-month celebration and limited cooperative PvE boss.
+EVT002,Half-Anniversary Raid,milestone,GLOBAL_WEST,2024-06-26,2024-07-09,Six-month celebration and limited cooperative PvE boss.
+EVT016,KR Summer Check-In,regional,KR,2024-07-03,2024-07-07,A culturally neutral summer check-in for KR.
+EVT017,JP Star Festival,regional,JP,2024-07-03,2024-07-07,A localized star-festival mission series for JP.
+EVT018,Global West Summer Celebration,regional,GLOBAL_WEST,2024-07-03,2024-07-07,A culturally neutral July summer celebration for Global West.
+EVT003,Fantasy Saga Crossover,collaboration,KR,2024-09-04,2024-09-25,A well-matched fantasy IP collaboration with story and boss content.
+EVT003,Fantasy Saga Crossover,collaboration,JP,2024-09-04,2024-09-25,A well-matched fantasy IP collaboration with story and boss content.
+EVT003,Fantasy Saga Crossover,collaboration,GLOBAL_WEST,2024-09-04,2024-09-25,A well-matched fantasy IP collaboration with story and boss content.
+EVT004,Regional Autumn Festival,seasonal,KR,2024-09-26,2024-10-09,"Localized Chuseok, harvest, and moon-viewing rewards by region."
+EVT004,Regional Autumn Festival,seasonal,JP,2024-09-26,2024-10-09,"Localized Chuseok, harvest, and moon-viewing rewards by region."
+EVT004,Regional Autumn Festival,seasonal,GLOBAL_WEST,2024-09-26,2024-10-09,"Localized Chuseok, harvest, and moon-viewing rewards by region."
+EVT005,Christmas Festival 2024,seasonal,KR,2024-12-18,2024-12-31,"Shared holiday story, costumes, and login rewards."
+EVT005,Christmas Festival 2024,seasonal,JP,2024-12-18,2024-12-31,"Shared holiday story, costumes, and login rewards."
+EVT005,Christmas Festival 2024,seasonal,GLOBAL_WEST,2024-12-18,2024-12-31,"Shared holiday story, costumes, and login rewards."
+EVT019,New Year Festival 2025,seasonal,KR,2025-01-01,2025-01-07,Shared New Year login rewards before the anniversary.
+EVT019,New Year Festival 2025,seasonal,JP,2025-01-01,2025-01-07,Shared New Year login rewards before the anniversary.
+EVT019,New Year Festival 2025,seasonal,GLOBAL_WEST,2025-01-01,2025-01-07,Shared New Year login rewards before the anniversary.
+EVT006,First Anniversary,anniversary,KR,2025-01-08,2025-01-31,"Anniversary selector rewards, raid, and progression support."
+EVT006,First Anniversary,anniversary,JP,2025-01-08,2025-01-31,"Anniversary selector rewards, raid, and progression support."
+EVT006,First Anniversary,anniversary,GLOBAL_WEST,2025-01-08,2025-01-31,"Anniversary selector rewards, raid, and progression support."
+EVT007,Spring Content Gap,content_gap,KR,2025-03-20,2025-04-30,Long interval without major story or end-game content.
+EVT007,Spring Content Gap,content_gap,JP,2025-03-20,2025-04-30,Long interval without major story or end-game content.
+EVT007,Spring Content Gap,content_gap,GLOBAL_WEST,2025-03-20,2025-04-30,Long interval without major story or end-game content.
+EVT008,PvE Growth Subscription Launch,bm_launch,KR,2025-05-15,2025-06-14,New subscription adds daily currency and modest PvE progression benefits.
+EVT008,PvE Growth Subscription Launch,bm_launch,JP,2025-05-15,2025-06-14,New subscription adds daily currency and modest PvE progression benefits.
+EVT008,PvE Growth Subscription Launch,bm_launch,GLOBAL_WEST,2025-05-15,2025-06-14,New subscription adds daily currency and modest PvE progression benefits.
+EVT009,Astra Heroes Crossover,collaboration,KR,2025-07-09,2025-07-30,Well-known but poor-fit collaboration; acquisition rises while retention weakens.
+EVT009,Astra Heroes Crossover,collaboration,JP,2025-07-09,2025-07-30,Well-known but poor-fit collaboration; acquisition rises while retention weakens.
+EVT009,Astra Heroes Crossover,collaboration,GLOBAL_WEST,2025-07-09,2025-07-30,Well-known but poor-fit collaboration; acquisition rises while retention weakens.
+EVT010,Data Center Outage,incident,KR,2025-08-12,2025-08-12,A power-chain failure makes the service unavailable for the full calendar day.
+EVT010,Data Center Outage,incident,JP,2025-08-12,2025-08-12,A power-chain failure makes the service unavailable for the full calendar day.
+EVT010,Data Center Outage,incident,GLOBAL_WEST,2025-08-12,2025-08-12,A power-chain failure makes the service unavailable for the full calendar day.
+EVT020,Partial Service Restoration,incident_response,KR,2025-08-13,2025-08-13,"Service returns at noon after 36 total hours offline, with continuing instability."
+EVT020,Partial Service Restoration,incident_response,JP,2025-08-13,2025-08-13,"Service returns at noon after 36 total hours offline, with continuing instability."
+EVT020,Partial Service Restoration,incident_response,GLOBAL_WEST,2025-08-13,2025-08-13,"Service returns at noon after 36 total hours offline, with continuing instability."
+EVT011,Delayed Initial Response,incident_response,KR,2025-08-14,2025-08-16,Repeated extensions and delayed communication worsen player sentiment.
+EVT011,Delayed Initial Response,incident_response,JP,2025-08-14,2025-08-16,Repeated extensions and delayed communication worsen player sentiment.
+EVT011,Delayed Initial Response,incident_response,GLOBAL_WEST,2025-08-14,2025-08-16,Repeated extensions and delayed communication worsen player sentiment.
+EVT012,Extraordinary Compensation,recovery,KR,2025-08-17,2025-08-23,Apology grants a selector including awakened and previously limited characters.
+EVT012,Extraordinary Compensation,recovery,JP,2025-08-17,2025-08-23,Apology grants a selector including awakened and previously limited characters.
+EVT012,Extraordinary Compensation,recovery,GLOBAL_WEST,2025-08-17,2025-08-23,Apology grants a selector including awakened and previously limited characters.
+EVT013,Postmortem and Trust Recovery,recovery,KR,2025-08-24,2025-09-20,"A follow-up notice explains root cause, safeguards, monitoring, and recurrence prevention."
+EVT013,Postmortem and Trust Recovery,recovery,JP,2025-08-24,2025-09-20,"A follow-up notice explains root cause, safeguards, monitoring, and recurrence prevention."
+EVT013,Postmortem and Trust Recovery,recovery,GLOBAL_WEST,2025-08-24,2025-09-20,"A follow-up notice explains root cause, safeguards, monitoring, and recurrence prevention."
+EVT014,Regional Autumn Festival,seasonal,KR,2025-10-01,2025-10-14,Localized autumn celebration and return missions.
+EVT014,Regional Autumn Festival,seasonal,JP,2025-10-01,2025-10-14,Localized autumn celebration and return missions.
+EVT014,Regional Autumn Festival,seasonal,GLOBAL_WEST,2025-10-01,2025-10-14,Localized autumn celebration and return missions.
+EVT015,Christmas Festival 2025,seasonal,KR,2025-12-17,2025-12-31,Shared holiday story and seasonal pass.
+EVT015,Christmas Festival 2025,seasonal,JP,2025-12-17,2025-12-31,Shared holiday story and seasonal pass.
+EVT015,Christmas Festival 2025,seasonal,GLOBAL_WEST,2025-12-17,2025-12-31,Shared holiday story and seasonal pass.

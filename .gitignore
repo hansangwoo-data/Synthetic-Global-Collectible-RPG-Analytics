@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Local environments and credentials
+.env
+.env.*
+!.env.example
+
+# Confidential source data and generated exports
+data/raw/
+data/private/
+data/**/*.xlsx
+data/**/*.xls
+data/**/*.csv
+!data/sample/*.csv
+!data/synthetic/*.csv
+outputs/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
