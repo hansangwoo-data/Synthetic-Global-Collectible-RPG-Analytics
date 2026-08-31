@@ -1,5 +1,7 @@
 # Synthetic Global Collectible RPG Analytics
 
+[한국어 요약 (Korean Summary)](README_KR.md)
+
 An end-to-end analytics portfolio project following the first two years of a
 fictional **character-collection, turn-based mobile player-versus-environment
 (PvE) RPG** across South Korea (KR), Japan (JP), and a fictional Global West
