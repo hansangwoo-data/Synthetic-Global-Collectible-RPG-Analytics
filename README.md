@@ -7,7 +7,7 @@ This project reflects my transition from five years in Game Operations into data
 
 **Questions:** Which acquisition cohorts brought in more players but retained them less effectively? Is weak boss participation an entry problem? Does a subscription add value or coincide with a spending shift? When should an incident response close?
 
-**Data:** six aggregate scenario tables (2024–2025; KR, JP, Global West) plus a separate 360-user registration/login example. The two populations are not linked. The original D30 metric is a synthetic retention indicator, while the added SQL analysis calculates exact-day D7/D30 retention from login records.
+**Data:** six scenario tables (2024–2025; KR, JP, Global West) plus a separate 360-user registration/login example. The two populations are not linked. The original D30 metric is a synthetic retention indicator, while the added SQL analysis calculates exact-day D7/D30 retention from login records.
 
 **Methods:** Python/pandas for analysis, SQLite for both overall metrics and user-level queries, and Matplotlib/Seaborn for charts. SQL results are checked against pandas.
 
@@ -25,7 +25,7 @@ This project reflects my transition from five years in Game Operations into data
 | Analysis | Data preparation and checks |
 |---|---|
 | [Business questions and metric definitions](docs/analysis_spec.md) | [Table grain and data model](docs/data_model.md) |
-| [Six analyses](#analysis-details) and [assumption sensitivity](docs/sensitivity.md) | [Cross-table business contracts](src/data_contracts.py) |
+| [Six analyses](#analysis-details) and [assumption sensitivity](docs/sensitivity.md) | [Cross-table validation checks](src/data_contracts.py) |
 | [Proposed experiments](docs/decision_plan.md) | [User-level cohort SQL](sql/user_retention.sql): CTEs, joins, date logic, window function |
 | [Connecting operations experience to analysis](docs/operations_to_da.md) | [Independent pandas reconciliation](src/user_retention.py), [edge-case tests](tests/test_user_retention.py) |
 
@@ -33,14 +33,14 @@ This project reflects my transition from five years in Game Operations into data
 
 [Metric specification](docs/user_retention.md) · [Generated cohort results](docs/user_retention_results.md)
 
-The SQL calculates D7 and D30 retention from user login records. Only users who have had enough time to reach D7 or D30 are included in each calculation. Duplicate login records and multiple sessions on the same day are removed before counting retained users. D7 and D30 are calculated independently. This means a user can return on D30 even if they did not log in on D7.  The SQL results are then cross-checked against pandas.  
+The SQL calculates D7 and D30 retention from user login records. Only users who have had enough time to reach D7 or D30 are included in each calculation. Duplicate login records and multiple sessions on the same day are removed before counting retained users. D7 and D30 are calculated independently. This means a user can return on D30 even if they did not log in on D7. The SQL results are then cross-checked against pandas.
 
 ## Analysis details
 
 These six analyses use the overall scenario data. Their D1/D7/D30 labels refer to the synthetic retention indicator described above.
 
 1. [Lifecycle](docs/findings/analysis_01_lifecycle.md): event calendar and contextual persistence.
-2. [Acquisition quality](docs/findings/analysis_02_retention.md): volume versus checkpoint proxy.
+2. [Acquisition quality](docs/findings/analysis_02_retention.md): volume versus synthetic retention indicator.
 3. [PvE participation](docs/findings/analysis_03_pve.md): entry and selection hypotheses.
 4. [Monetization](docs/findings/analysis_04_monetization.md): total revenue versus adjacent-offer mix.
 5. [Incident](docs/findings/analysis_05_incident.md): separate operational, activity and commercial indices.
@@ -69,4 +69,4 @@ The pipeline reads committed sources, regenerates analysis CSVs/charts and check
 
 ## Limitations
 
-This project uses synthetic data, so the findings should be treated as scenario-based analysis rather than real production evidence. The dataset does not include individual transactions, VOC/CS records, or experiment assignments, so buyer switching, boss-entry behavior, and causal effects cannot be confirmed at the user level. The separate login example is only used to demonstrate exact-day retention measurement and is not linked to the main scenario data. [Remaining weaknesses and interview preparation]
+This project uses synthetic data, so the findings should be treated as scenario-based analysis rather than real production evidence. The dataset does not include individual transactions, VOC/CS records, or experiment assignments, so buyer switching, boss-entry behavior, and causal effects cannot be confirmed at the user level. The separate login example is only used to demonstrate exact-day retention measurement and is not linked to the main scenario data.
