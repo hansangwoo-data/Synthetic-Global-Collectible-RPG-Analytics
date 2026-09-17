@@ -3,13 +3,13 @@
 [한국어](README_KR.md) · [Reproduce](#reproduce)
 
 **A Game Operations → Data Analyst portfolio: DA 70% + Analytics Engineer 30%.**
-After five years in Game Operations, I am moving into data analysis. This project explores acquisition, boss participation, monetization and incident follow-up in a fictional collectible RPG, using independently generated synthetic data.
+AThis project reflects my transition from five years in Game Operations into data analysis. It explores acquisition, boss participation, monetization, and incident follow-up in a fictional collectible RPG using independently generated synthetic data.
 
-**Questions:** Which acquisition cohorts warrant follow-up? Is weak boss participation an entry problem? Does a subscription add value or coincide with a spending shift? When should an incident response close?
+**Questions:** Which acquisition cohorts brought in more players but retained them less effectively? Is weak boss participation an entry problem? Does a subscription add value or coincide with a spending shift? When should an incident response close?
 
-**Data:** six aggregate scenario tables (2024–2025; KR, JP, Global West) plus a separate 360-user registration/login example. The two populations are not linked. Aggregate D30 is a **nested checkpoint proxy**; the added SQL analysis measures **session-based exact-day D7/D30**.
+**Data:** six aggregate scenario tables (2024–2025; KR, JP, Global West) plus a separate 360-user registration/login example. The two populations are not linked. The original D30 metric is a synthetic retention indicator, while the added SQL analysis calculates exact-day D7/D30 retention from login records.
 
-**Methods:** Python/pandas for analysis, SQLite for aggregate and user-level queries, and Matplotlib/Seaborn for charts. SQL results are checked against pandas.
+**Methods:** Python/pandas for analysis, SQLite for both overall metrics and user-level queries, and Matplotlib/Seaborn for charts. SQL results are checked against pandas.
 
 | Finding | What to check next |
 |---|---|
