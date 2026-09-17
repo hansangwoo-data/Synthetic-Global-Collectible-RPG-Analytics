@@ -37,7 +37,7 @@ The SQL calculates D7 and D30 retention from user login records. Only users who 
 
 ## Analysis details
 
-These six analyses use the aggregate scenario. Their D1/D7/D30 labels refer to the checkpoint proxy described above.
+These six analyses use the overall scenario data. Their D1/D7/D30 labels refer to the synthetic retention indicator described above.
 
 1. [Lifecycle](docs/findings/analysis_01_lifecycle.md): event calendar and contextual persistence.
 2. [Acquisition quality](docs/findings/analysis_02_retention.md): volume versus checkpoint proxy.
@@ -50,7 +50,9 @@ These six analyses use the aggregate scenario. Their D1/D7/D30 labels refer to t
 
 ## What changed after validation
 
-A cross-check found that some daily unique payer counts exceeded the sum of product-level buyers. The original tests did not check that relationship. Correcting PU changed payer-derived conclusions and removed the JP-only warning. Revenue, DAU and checkpoint source data stayed unchanged. Cross-table checks and SQL/pandas comparisons now cover the corrected metrics. [Detailed before/after](docs/validation_changes.md).
+During validation, I found that some daily unique payer counts were higher than the combined number of product-level buyers, which should not have been possible. The original tests did not catch this because that relationship was not included in the checks.
+
+After correcting the PU logic, several payer-based conclusions changed, including the previous JP-only warning. Revenue, DAU, and the original retention source data did not change. I also added cross-table checks and SQL/pandas comparisons to catch the same type of issue in future runs. [Detailed before/after](docs/validation_changes.md).
 
 ## Reproduce
 
@@ -64,14 +66,6 @@ MPLBACKEND=Agg python -m src.verify_publication
 ```
 
 The pipeline reads committed sources, regenerates analysis CSVs/charts and checks SQL parity and generated reports. `verify_publication` executes all notebook code cells in order and checks README claims against generated source evidence. CI runs these same commands. Generated outputs are in `outputs/`.
-
-Intentional source/document regeneration only:
-
-```bash
-MPLBACKEND=Agg python -m src.run_pipeline --regenerate --refresh-docs
-```
-
-`--regenerate` reproduces both the six-table scenario and the separate user-log population. Review any resulting source/evidence diff. Four aggregate SQL views and one user-cohort SQL query are reconciled independently with pandas. Tests include business bounds and manually constructed temporal edge cases.
 
 ## Limitations
 
