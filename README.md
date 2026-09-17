@@ -69,8 +69,4 @@ The pipeline reads committed sources, regenerates analysis CSVs/charts and check
 
 ## Limitations
 
-The findings describe synthetic scenarios, not measured production effects. No experiment has been run, and the results cannot establish causality or real-world ROI.
-
-Daily PU remains a modeled feasible union, not observed unique buyers. There are no individual transactions, VOC/CS records or experiment assignments. Aggregate data cannot show whether individual buyers switched products or where users left the boss-entry path. Comparable entrant outcomes do not rule out difficulty-related selection. “Recovery” means a return toward a reference level, not restored trust or the same players returning.
-
-The separate login example does not explain the aggregate scenario or establish regional rankings. Cohort maturity and baseline selection matter; regional severity can change with payer assumptions. [Remaining weaknesses and interview preparation](docs/hiring_readiness_review.md).
+This project uses synthetic data, so the findings should be treated as scenario-based analysis rather than real production evidence. The dataset does not include individual transactions, VOC/CS records, or experiment assignments, so buyer switching, boss-entry behavior, and causal effects cannot be confirmed at the user level. The separate login example is only used to demonstrate exact-day retention measurement and is not linked to the main scenario data. [Remaining weaknesses and interview preparation](docs/hiring_readiness_review.md).
