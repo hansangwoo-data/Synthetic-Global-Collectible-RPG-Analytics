@@ -11,6 +11,11 @@ import pandas as pd
 import seaborn as sns
 
 try:
+    from src.data_contracts import require_window
+except ModuleNotFoundError:
+    from data_contracts import require_window
+
+try:
     from src.analyze_game_data import load_data, project_root
 except ModuleNotFoundError:  # Support `python src/analyze_incident.py`.
     from analyze_game_data import load_data, project_root
@@ -83,6 +88,7 @@ def incident_window_summary(daily: pd.DataFrame) -> pd.DataFrame:
     for scope, regions in scopes:
         for order, (window, (start_text, end_text)) in enumerate(INCIDENT_WINDOWS.items()):
             start, end = pd.Timestamp(start_text), pd.Timestamp(end_text)
+            require_window(frame, "date", start, end, regions, "incident window")
             period = frame[
                 frame["region"].isin(regions) & frame["date"].between(start, end)
             ]

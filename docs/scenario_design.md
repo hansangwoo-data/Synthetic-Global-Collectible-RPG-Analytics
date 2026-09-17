@@ -41,10 +41,10 @@ independent random columns.
 5. Reconcile product-level revenue to daily service revenue.
 6. Test invariants, event availability, mature cohort coverage, and incident
    behavior.
-7. Analyze the resulting scenario under pre-declared decision rules.
+7. Analyze the resulting scenario under authored descriptive decision rules.
 
 Random variation uses a fixed seed, so the same source produces the same public
-tables and results on every run.
+tables and results on the pinned numeric dependency versions.
 
 ## Fictional Product
 
@@ -59,8 +59,9 @@ passes, a login-based premium-currency pass, equipment and growth products,
 limited event bundles, a PvE growth subscription, and standard currency
 top-ups.
 
-The premium-currency pass distributes value across 30 days and requires login
-to claim it. The PvE subscription launches before the incident so the product
+In the fictional product narrative, the premium-currency pass distributes value
+across 30 days and requires login to claim it. Claim and entitlement logs are not
+simulated; purchase-cycle fields are descriptive metadata. The PvE subscription launches before the incident so the product
 change can be evaluated separately from incident-driven behavior.
 
 Direct sales of complete limited characters and gacha pull logs are excluded.
@@ -125,7 +126,10 @@ English-speaking Western markets behave as one uniform region.
   non-return rather than impossible churn events while the server is offline.
 - Observed DAU is separated from latent addressable population so one outage
   does not mechanically delete all future players.
-- Retention follows `D30 ≤ D7 ≤ D1 ≤ cohort size`.
+- Custom nested-checkpoint retention follows `D30 ≤ D7 ≤ D1 ≤ cohort size`;
+  it is not exact-day session retention or continuous daily survival.
+- Service PU is a feasible aggregate union of daily product purchasers;
+  purchase identities and renewal cycles are not simulated.
 - Boss funnels follow `clears ≤ participants ≤ attempts`.
 - Product revenue follows `units sold × global list price` and reconciles to
   daily revenue.

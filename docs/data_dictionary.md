@@ -6,7 +6,7 @@ Grain: one row per `date × region`.
 
 | Field | Description |
 |---|---|
-| date | Calendar date |
+| date | UTC calendar date; one shared boundary across all regions |
 | region | KR, JP, or GLOBAL_WEST |
 | dau | Observed daily active users |
 | nru | New registered users |
@@ -15,13 +15,15 @@ Grain: one row per `date × region`.
 | event_names | Active fictional scenario label |
 | event_types | Active scenario type |
 | service_availability | Observable service availability from 0 to 1; all activity and commerce fields are zero at 0 |
-| pu | Unique paying users |
+| pu | Feasible synthetic daily payer union: max(max product purchasers, min(original demand target, sum product purchasers)); bounded by DAU. No user identities are generated. |
 | revenue | Reconciled gross synthetic USD |
 
 ## retention_cohorts.csv
 
 Grain: one row per `cohort_month × region`. Retained counts use a
-survival-style definition and therefore follow `D30 ≤ D7 ≤ D1`. Only cohorts
+custom nested-checkpoint definition and therefore follow `D30 ≤ D7 ≤ D1`.
+These counts are authored proxies, not exact-day session retention or continuous
+daily survival. Conventional exact-day retention need not be monotone. Only cohorts
 through November 2025 are published because the December cohort is not mature
 enough for D30 observation by the dataset end date.
 
@@ -58,7 +60,7 @@ Grain: one row per product.
 | product_type | Daily, weekly, pass, subscription, currency top-up, equipment, growth, or limited bundle |
 | price_usd | Synthetic list price |
 | available_from | First sale date |
-| purchase_cycle_days | Intended repeat-purchase interval |
+| purchase_cycle_days | Scenario metadata only: intended interval; no user-level cooldown or renewal process is enforced |
 
 The catalog excludes direct sales of complete limited characters.
 
@@ -113,3 +115,16 @@ Constraints: `clears ≤ participants ≤ attempts`.
 
 Difficulty-level participants may overlap. They must not be summed and
 described as unique total boss participants.
+
+## Aggregation and identifiability
+
+- Sum of daily PU is payer-days, not unique monthly/lifetime payers.
+- `product_summary.purchaser_days` sums daily per-product purchasers, not distinct people.
+- The lifecycle/event summary averages recomputed **daily** rates across days.
+  Monetization/incident period rates use **ratio of period sums**. These are
+  different estimands; do not compare them without aligning window and weighting.
+- The generic event summary uses a 14-day baseline; the subscription decision
+  uses 30 days. This explains differing generic and dedicated revenue changes.
+- `net_flow` is an authored proxy, not an exact DAU bridge: generator noise, the
+  latent activity stock, and availability scaling also change observed DAU.
+- Each region is a disjoint synthetic population; global counts sum regional counts.

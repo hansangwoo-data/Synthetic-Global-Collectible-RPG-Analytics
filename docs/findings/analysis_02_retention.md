@@ -63,8 +63,8 @@ apply a directional bias adjustment.
 
 ### At a Glance
 
-Each line shows the share of a region's monthly acquisition cohort still active
-after 30 days. Vertical markers identify the cohort months containing Fantasy,
+Each line shows the region's authored nested D30 checkpoint share. This is
+a synthetic retention proxy, not observed exact-day session retention. Vertical markers identify the cohort months containing Fantasy,
 Astra, and the infrastructure incident. They mark context, not exact event-day
 causality.
 
@@ -201,5 +201,5 @@ or another mechanism produced the decline.
 Analysis 2 supports different provisional decisions for the two collaboration
 contexts: Fantasy is **Successful**, while Astra is **Mixed: volume-quality
 trade-off**. Analysis 3 tests whether Astra's retention deterioration coincides
-with weak entry into its featured PvE boss and whether the break occurs before
-or after players begin attempting the content.
+with weak entry into its featured PvE boss and compares outcomes among entrants.
+This prioritizes hypotheses without identifying an individual dropout stage.

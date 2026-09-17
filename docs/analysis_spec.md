@@ -10,7 +10,7 @@ analytics-engineering practices.
 - Engineering emphasis: explicit table grain, deterministic generation, tested
   transformations, revenue reconciliation, and reproducible outputs.
 
-All public artifacts use English. Interview preparation and working discussion
+The main technical artifacts use English; README_KR.md provides a Korean summary. Interview preparation and working discussion
 are outside the repository.
 
 ## 2. Observation Scope
@@ -54,7 +54,8 @@ separately. Terms such as “caused,” “proved,” and “measured trust” a
 
 Daily active users (DAU), paying users, D1/D7/D30 retention, average revenue
 per user (ARPU), average revenue per paying user (ARPPU), and conversion rate
-follow common game-analytics usage. The following metrics are project-defined
+use familiar names. The retention counts here are custom nested-checkpoint
+synthetic proxies, not conventional exact-day retention measured from sessions. The following metrics are project-defined
 and are not presented as industry standards: recovery index, participation
 benchmark index, revenue per service payer-day, and the D30 retained-user gap at
 target volume. Their formulas and aggregation limits are stated in this
@@ -62,8 +63,11 @@ specification or the Data Dictionary, as applicable.
 
 ## 4. Practical Thresholds
 
-An effect is material only when it exceeds both ordinary baseline variation and
-the minimum practical threshold below.
+Lifecycle immediate lift uses the larger of the baseline coefficient of
+variation and a practical threshold. Acquisition D30 uses the larger of 1 pp
+and baseline monthly standard deviation. Monetization and incident checks use
+the fixed business thresholds below; no statistical variability gate is applied
+to those decisions. Thresholds are scenario choices, not a preregistered study.
 
 ### Growth and major events
 

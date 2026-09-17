@@ -7,7 +7,7 @@ or modeled from a specific company's production data.
 The fixed seed in `src/generate_synthetic_data.py` reproduces:
 
 - regional daily KPIs for KR, JP, and Global West;
-- mature monthly survival-style retention cohorts through November 2025;
+- mature monthly custom nested-checkpoint retention cohorts through November 2025;
 - a fictional event and incident calendar;
 - a product dimension with standard premium-currency top-ups but without direct
   limited-character sales;

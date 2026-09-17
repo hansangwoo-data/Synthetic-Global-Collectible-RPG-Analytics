@@ -2,6 +2,11 @@
 
 Scope: four limited PvE bosses across KR, JP, and Global West
 
+> Measurement boundary: participant-day / DAU-day rates do not trace a player
+> funnel. Comparable outcomes among entrants do not rule out self-selection
+> based on difficulty, power or eligibility. “Entry gap” below is a diagnostic
+> hypothesis, not a located individual dropout stage.
+
 ## Quick Summary
 
 > Astra generated positive event traffic, but its featured boss reached only

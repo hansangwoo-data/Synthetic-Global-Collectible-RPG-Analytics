@@ -150,7 +150,7 @@ def regional_guardrail_matrix(evidence: pd.DataFrame) -> pd.DataFrame:
     for order, (guardrail_id, label, column, threshold, value_format) in enumerate(rules):
         for _, region_row in evidence.iterrows():
             value = float(region_row[column])
-            passed = value >= threshold
+            passed = value > threshold if guardrail_id in {"astra_d30", "bm_launch", "bm_post_14"} else value >= threshold
             rows.append({
                 "guardrail_id": guardrail_id,
                 "guardrail_label": label,
@@ -185,101 +185,29 @@ def regional_guardrail_matrix(evidence: pd.DataFrame) -> pd.DataFrame:
 
 def regional_action_plan(evidence: pd.DataFrame) -> pd.DataFrame:
     """Create shared and regional priorities linked to observed evidence."""
-    by_region = evidence.set_index("region")
     rows = [
-        {
-            "scope": "ALL",
-            "priority": "P0-1",
-            "theme": "Event-to-core bridge",
-            "action": "Instrument and repair exposure → eligibility → first-attempt flow.",
-            "evidence": (
-                "Astra NORMAL entry is 81.29–82.97 of benchmark and D30 is "
-                "-2.13 to -2.58 pp in every region."
-            ),
-        },
-        {
-            "scope": "ALL",
-            "priority": "P0-2",
-            "theme": "Recurring-offer protection",
-            "action": "Separate PvE-subscription value from adjacent recurring offers.",
-            "evidence": (
-                "Post-14 adjacent revenue per service payer-day is -8.01% to -9.89% "
-                "in every region."
-            ),
-        },
-        {
-            "scope": "ALL",
-            "priority": "P0-3",
-            "theme": "Incident exit criteria",
-            "action": "Keep recovery open until daily and mature-cohort guardrails pass.",
-            "evidence": (
-                "Daily operational thresholds recover everywhere, but post-recovery "
-                "D30 remains -0.67 to -1.58 pp."
-            ),
-        },
-        {
-            "scope": "KR",
-            "priority": "P1",
-            "theme": "Acquisition recovery",
-            "action": "Restore qualified acquisition before adding broader traffic spend.",
-            "evidence": (
-                f"Post-recovery NRU index is {by_region.loc['KR', 'incident_nru_recovery_index']:.2f}, "
-                "the weakest regional result and 13.80% below its baseline."
-            ),
-        },
-        {
-            "scope": "KR",
-            "priority": "P2",
-            "theme": "Delayed offer overlap",
-            "action": "Monitor renewal timing and reduce delayed recurring-offer overlap.",
-            "evidence": (
-                f"Subscription adjacency moves from {by_region.loc['KR', 'bm_adjacent_launch_change_pct']:.2f}% "
-                f"at launch to {by_region.loc['KR', 'bm_adjacent_post_14_change_pct']:.2f}% post-14."
-            ),
-        },
-        {
-            "scope": "JP",
-            "priority": "P1",
-            "theme": "Immediate offer-positioning warning",
-            "action": "Test differentiated benefits and launch messaging for recurring payers.",
-            "evidence": (
-                f"Launch adjacency is {by_region.loc['JP', 'bm_adjacent_launch_change_pct']:.2f}%, "
-                "the only immediate regional warning."
-            ),
-        },
-        {
-            "scope": "JP",
-            "priority": "P2",
-            "theme": "Post-incident durability",
-            "action": "Pair payer recovery with cohort and outflow follow-up.",
-            "evidence": (
-                f"Post-recovery D30 is {by_region.loc['JP', 'incident_d30_change_pp']:.2f} pp "
-                f"and outflow index is {by_region.loc['JP', 'incident_outflow_recovery_index']:.2f}."
-            ),
-        },
-        {
-            "scope": "GLOBAL_WEST",
-            "priority": "P1",
-            "theme": "Quality before more scale",
-            "action": "Gate acquisition expansion on D30 and core-content entry quality.",
-            "evidence": (
-                f"Launch-period daily revenue grows {by_region.loc['GLOBAL_WEST', 'bm_launch_revenue_change_pct']:.2f}%, "
-                f"but Astra D30 is {by_region.loc['GLOBAL_WEST', 'astra_d30_change_pp']:.2f} pp "
-                f"and post-recovery D30 is {by_region.loc['GLOBAL_WEST', 'incident_d30_change_pp']:.2f} pp."
-            ),
-        },
-        {
-            "scope": "GLOBAL_WEST",
-            "priority": "P2",
-            "theme": "Live-ops revenue dependence",
-            "action": "Build durable quiet-period value and monitor event-to-quiet decay.",
-            "evidence": (
-                f"2025 live-ops revenue share is "
-                f"{by_region.loc['GLOBAL_WEST', 'liveops_revenue_share_2025']:.1%}, "
-                "the highest regional share."
-            ),
-        },
+        {"scope": "ALL", "priority": "P0-1", "theme": "Test entry hypothesis",
+         "action": "Instrument exposure, eligibility and first attempt before selecting an entry treatment.",
+         "evidence": "Low aggregate boss participation coexists with weak D30; individual paths are unobserved."},
+        {"scope": "ALL", "priority": "P0-2", "theme": "Recurring-offer diagnostic",
+         "action": "Audit payer overlap, then test differentiated benefits with a holdout.",
+         "evidence": "See computed launch and post-14 ranges; aggregate ratios cannot identify buyer switching."},
+        {"scope": "ALL", "priority": "P0-3", "theme": "Recovery exit criteria",
+         "action": "Track activity, commercial and mature-cohort recovery separately.",
+         "evidence": "Daily operational checks and D30 checks use different populations and horizons."},
     ]
+    low = evidence["bm_adjacent_launch_change_pct"].min()
+    high = evidence["bm_adjacent_launch_change_pct"].max()
+    rows[1]["evidence"] = f"Launch adjacent change ranges from {low:.2f}% to {high:.2f}%; inspect payer assumptions before causal claims."
+    for r in evidence.itertuples():
+        rows.extend([
+            {"scope": r.region, "priority": "P1", "theme": "Acquisition and entry diagnosis",
+             "action": "Inspect acquisition mix and eligibility before scaling spend or changing difficulty.",
+             "evidence": f"NRU recovery index {r.incident_nru_recovery_index:.2f}; Astra entry index {r.astra_normal_participation_index:.2f}; D30 change {r.astra_d30_change_pp:.2f} pp."},
+            {"scope": r.region, "priority": "P2", "theme": "Offer and recovery quality",
+             "action": "Test catalog differentiation; retain mature-cohort monitoring after operational recovery.",
+             "evidence": f"Launch adjacency {r.bm_adjacent_launch_change_pct:.2f}%; post-14 {r.bm_adjacent_post_14_change_pct:.2f}%; residual D30 {r.incident_d30_change_pp:.2f} pp."},
+        ])
     return pd.DataFrame(rows)
 
 
@@ -355,7 +283,7 @@ def save_regional_charts(evidence: pd.DataFrame,
         vmin=0, vmax=1, cbar=False, linewidths=1, linecolor="white", ax=ax,
     )
     ax.set(
-        title="Shared Warnings and the JP-Specific Launch Signal",
+        title="Regional Guardrails after Payer Reconciliation",
         xlabel="Region", ylabel="",
     )
     fig.text(

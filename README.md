@@ -18,7 +18,7 @@ automated tests.
 | Observation period | 2024-01-01 to 2025-12-31 |
 | Public datasets | 6 tables, 27,351 synthetic rows |
 | Core themes | lifecycle, retention, PvE content, monetization, incident recovery, regional strategy |
-| Tools and methods | Python, pandas, NumPy, Matplotlib, Seaborn, unit testing |
+| Tools and methods | SQL (SQLite), Python, pandas, NumPy, Matplotlib, Seaborn, unit testing |
 
 ## Data Provenance and Confidentiality
 
@@ -35,6 +35,14 @@ company schema, company identifier, or actual service incident.
 
 See [Scenario and Synthetic Data Design](docs/scenario_design.md) for the full
 design rationale and fictional service timeline.
+
+## Audit and hiring review
+
+A source-model audit found impossible payer counts despite 64 passing original
+tests. The correction changes payer-derived results and withdraws the former
+JP-only subscription warning. [Findings and correction](docs/audit_review.md) ·
+[Recomputed claims](docs/verified_claims.md) · [Sensitivity](docs/sensitivity.md) ·
+[Decision and experiment plan](docs/decision_plan.md) · [Data model](docs/data_model.md).
 
 ## Quick Overview
 
@@ -71,8 +79,8 @@ checks.
   holiday baseline and remained 49.9% above that reference afterward. This
   supports contextual persistence relative to an elevated reference, not an
   isolated anniversary-effect estimate.
-- **Collaboration quality — Attracting more players did not mean that more of
-  them stayed.** Players acquired during the Fantasy collaboration formed a
+- **Collaboration quality — More acquisition did not ensure a higher
+  retained share.** Players acquired during the Fantasy collaboration formed a
   79.2% larger cohort than the reference and improved 30-day retention (D30) by
   2.74 percentage points. Astra produced a 50.1% larger cohort, but its D30 was
   2.44 percentage points lower. The same volume-quality trade-off appeared in
@@ -80,15 +88,15 @@ checks.
 - **Core-content entry — Too few players reached Astra's boss fight.** The
   share of daily active users recorded as participants reached only 82.2% of
   the usual standard-difficulty level.
-  Those who entered cleared it at normal rates and required a similar number
-  of attempts, placing the observed break before combat rather than within the
-  boss fight itself.
+  Entrants had comparable clear rates and attempt burden. This supports an
+  entry/selection hypothesis; aggregate tables do not identify the individual
+  journey or rule out difficulty-related self-selection.
 - **Subscription value — Revenue grew, but adjacent offers weakened after the
-  launch.** Daily revenue rose 72.2% and paying users rose 44.2% versus
+  launch.** Daily revenue rose 72.2% and paying users rose 57.9% versus
   the 30-day local baseline, but the new subscription accounted for only 25.5%
   of the observed revenue increase. After accounting for the larger payer
   base, combined revenue from the three adjacent recurring offers per service
-  payer-day fell 9.9% in the following 14 days. This creates a reallocation
+  payer-day fell 13.3% in the following 14 days. This creates a reallocation
   warning rather than proof that individual buyers switched products. The
   result was **Mixed**.
 - **Incident recovery — Players returned before revenue and retention
@@ -101,8 +109,8 @@ checks.
   outage-only causal estimate.
 - **Regional strategy — One global plan would overlook different local
   priorities.** KR's weakest post-recovery new-user acquisition signal called
-  for an acquisition-recovery diagnostic, JP showed the earliest adjacent-offer
-  warning around the subscription launch, and Global West needed stronger
+  for an acquisition-recovery diagnostic, all regions showed an immediate
+  adjacent-offer warning, and Global West needed stronger
   retention-quality checks before further acquisition growth.
 
 These are descriptive results from an authored synthetic scenario, not causal
@@ -137,8 +145,8 @@ retention rates fell below their reference cohorts.
 ![Event and core PvE alignment](images/event_pve_alignment.png)
 
 > **Key diagnostic:** Astra attracted players, but too few reached the featured
-> boss. Players who entered performed normally, placing the observed break
-> before combat rather than within the boss difficulty itself.
+> boss relative to DAU. Entrant outcomes were comparable, supporting an entry
+> hypothesis that requires eligibility and exposure logs to test.
 
 [Read Analysis 3 findings](docs/findings/analysis_03_pve.md).
 
@@ -167,22 +175,21 @@ check, not an outage-only causal estimate.
 
 ![Regional guardrail matrix](images/regional_guardrail_matrix.png)
 
-Some risks were shared across all three regions, but local priorities still
-differed. In particular, JP's immediate adjacent-product warning after the
-subscription launch is treated as a local issue rather than being averaged into
-a single regional score. Aggregate sales do not prove buyer-level switching.
+All three regions show immediate and persistent adjacent-product warnings
+after correcting impossible payer counts. KR has the weakest acquisition
+recovery signal; Global West combines scale upside with the largest D30 gap.
+Aggregate sales do not prove buyer-level switching.
 [Read Analysis 6 findings](docs/findings/analysis_06_regional_strategy.md).
 
 ## Overall Conclusion
 
-The service can generate attention, traffic, and revenue, but repeatedly loses
-value at three handoffs: **campaign awareness to core-content entry, new-product
+The aggregate scenario identifies three investigation priorities: **campaign awareness to core-content entry, new-product
 growth to adjacent-offer stability, and technical restoration to cohort
 recovery**.
 
 The recommended order is to add shared player-level diagnostics and guardrails
 first, then act on the evidence by region: investigate qualified acquisition
-and onboarding in KR, clarify recurring-offer positioning in JP, and apply
+and onboarding in KR, test recurring-offer positioning across all regions, and apply
 retention-durability gates before scaling acquisition further in Global West.
 This sequence keeps the first response measurable and reversible instead of
 jumping directly to difficulty changes, product removal, or more acquisition
@@ -208,7 +215,7 @@ flowchart LR
 ```
 
 The pipeline checks that every table is complete, internally consistent, and
-safe to analyze. The final suite contains **64 automated tests**.
+safe to analyze. The final suite contains **78 automated tests**.
 
 <details>
 <summary><strong>Technical validation coverage</strong></summary>
@@ -224,16 +231,22 @@ conditions, incident-stage boundaries, and recovery thresholds.
 
 ```bash
 pip install -r requirements.txt
-python src/generate_synthetic_data.py
-python src/analyze_game_data.py
-python src/analyze_lifecycle.py
-python src/analyze_retention.py
-python src/analyze_pve.py
-python src/analyze_monetization.py
-python src/analyze_incident.py
-python src/analyze_regional.py
+python -m src.run_pipeline
 python -m unittest discover -s tests -v
 ```
+
+The default command validates the **checked-in CSVs** before analysis, runs all
+seven analysis scripts, executes SQL/pandas parity, writes sensitivity tables and
+checks generated finding documents. To deliberately regenerate source CSVs and
+refresh evidence after a model change:
+
+```bash
+python -m src.run_pipeline --regenerate --refresh-docs
+```
+
+SQL examples: [schema](sql/schema.sql), [CTEs and window metrics](sql/metrics.sql).
+The SQL/pandas check covers 2,313 rows and 9,476 metric cells across four views.
+
 
 Generated analysis tables are written to the Git-ignored `outputs/` directory.
 
@@ -254,6 +267,10 @@ Generated analysis tables are written to the Git-ignored `outputs/` directory.
 
 - Scenario effects are authored assumptions, not estimated industry benchmarks.
 - Aggregated synthetic data cannot establish causal effects.
+- D1/D7/D30 are authored nested-checkpoint retention proxies, not exact-day
+  retention reconstructed from sessions; see the Data Dictionary.
+- PU is a feasible synthetic union under an explicit overlap assumption, not
+  an observed identity-level distinct count.
 - No user-level transactions, gacha pulls, character ownership, sentiment, or
   individual combat logs are included.
 - Gross synthetic USD excludes taxes, refunds, and platform fees.
