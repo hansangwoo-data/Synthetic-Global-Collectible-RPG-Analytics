@@ -14,6 +14,8 @@ def main():
     args=parser.parse_args()
     if args.regenerate:
         importlib.import_module('src.generate_synthetic_data').main()
+    from src.user_retention import run as user_retention
+    user_retention(regenerate=args.regenerate, check_docs=not args.refresh_docs)
     load_data(project_root())
     for name in ['game_data','lifecycle','retention','pve','monetization','incident','regional']:
         importlib.import_module('src.analyze_'+name).main()

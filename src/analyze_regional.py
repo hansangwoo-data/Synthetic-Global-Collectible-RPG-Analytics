@@ -188,12 +188,12 @@ def regional_action_plan(evidence: pd.DataFrame) -> pd.DataFrame:
     rows = [
         {"scope": "ALL", "priority": "P0-1", "theme": "Test entry hypothesis",
          "action": "Instrument exposure, eligibility and first attempt before selecting an entry treatment.",
-         "evidence": "Low aggregate boss participation coexists with weak D30; individual paths are unobserved."},
+         "evidence": "Low synthetic aggregate boss participation coexists with a lower D30 checkpoint proxy; individual paths are unobserved."},
         {"scope": "ALL", "priority": "P0-2", "theme": "Recurring-offer diagnostic",
          "action": "Audit payer overlap, then test differentiated benefits with a holdout.",
          "evidence": "See computed launch and post-14 ranges; aggregate ratios cannot identify buyer switching."},
         {"scope": "ALL", "priority": "P0-3", "theme": "Recovery exit criteria",
-         "action": "Track activity, commercial and mature-cohort recovery separately.",
+         "action": "Track activity/commercial reference indices and new-cohort checkpoint proxies separately.",
          "evidence": "Daily operational checks and D30 checks use different populations and horizons."},
     ]
     low = evidence["bm_adjacent_launch_change_pct"].min()

@@ -57,7 +57,9 @@ hidden real users. Maximum-overlap and no-overlap sensitivity scenarios retain
 all-region launch warnings in this dataset, but regional ranking varies.
 [Full sensitivity](sensitivity.md), [computed claims](verified_claims.md).
 
-## Hiring interpretation
+## Hiring interpretation at the first-pass audit
+
+The user-level SQL gap below has since been addressed with an independent supplemental login dataset; other production limitations remain. See [second-pass review](hiring_readiness_review.md).
 
 | Dimension | Evidence shown | Remaining gap |
 |---|---|---|

@@ -1,11 +1,14 @@
 # Analysis 2: Acquisition Quality and Retention
 
+> All evidence here is synthetic scenario output. D1/D7/D30 refer to authored nested checkpoint proxies, not session-based exact-day retention. Descriptive differences do not identify treatment effects. The separate [user-login analysis](../user_retention.md) uses actual exact-day logic on supplemental synthetic logs.
+
+
 Scope: January 2024 through November 2025
 
 ## Quick Summary
 
 > Fantasy and Astra both expanded acquisition, but only Fantasy maintained
-> retention quality. Astra improved D1 retention by 1.99 percentage points (pp),
+> retention quality. The Astra-context cohort has a higher D1 checkpoint proxy by 1.99 percentage points (pp),
 > then fell below its reference cohorts at D7 and D30 across all three regions.
 
 ## What This Analysis Answers
@@ -70,7 +73,7 @@ causality.
 
 ### Finding
 
-JP generally maintains the highest D30 retention, while Global West varies more
+In this authored scenario, JP generally has the highest D30 checkpoint proxy, while Global West varies more
 sharply. The direction of the major movements is nevertheless shared: the
 Fantasy-context cohort has high retention, the Astra-context cohort
 deteriorates, and the August 2025 incident-context cohort reaches the lowest D30
@@ -159,7 +162,7 @@ and D30.
 
 ### Finding
 
-Fantasy improves at every checkpoint and in every region. Because the autumn
+The Fantasy-context cohort is higher at every checkpoint and in every region. Because the autumn
 festival overlaps September, the finding applies to the combined target-month
 context rather than the crossover alone.
 

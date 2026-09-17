@@ -128,3 +128,20 @@ described as unique total boss participants.
 - `net_flow` is an authored proxy, not an exact DAU bridge: generator noise, the
   latent activity stock, and availability scaling also change observed DAU.
 - Each region is a disjoint synthetic population; global counts sum regional counts.
+
+
+## Supplemental registration/login source
+
+These tables are independent of all aggregate scenario facts. See [metric contract](user_retention.md).
+
+| File | Field | Meaning / constraint |
+|---|---|---|
+| user_cohort_users.csv | user_id | Unique synthetic user identifier |
+| user_cohort_users.csv | registered_at_utc | UTC registration, canonical YYYY-MM-DDTHH:MM:SS |
+| user_cohort_users.csv | region | Region at registration: KR / JP / GLOBAL_WEST |
+| user_cohort_logins.csv | event_id | Login event identity; repeated deliveries permitted |
+| user_cohort_logins.csv | user_id | Registered user foreign key |
+| user_cohort_logins.csv | occurred_at_utc | Login time; no earlier than registration |
+| user_cohort_logins.csv | received_at_utc | Delivery time; no earlier than occurrence |
+
+All fields are non-null. Redeliveries preserve user and occurrence time. UTC is explicit in field names; canonical strings omit the offset, and validators reject other formats. No payment/event exposure or acquisition-channel facts are implied.

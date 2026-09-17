@@ -1,5 +1,8 @@
 # Analysis 1: Service Lifecycle and Event Dependence
 
+> All evidence here is synthetic scenario output. D1/D7/D30 refer to authored nested checkpoint proxies, not session-based exact-day retention. Descriptive differences do not identify treatment effects. The separate [user-login analysis](../user_retention.md) uses actual exact-day logic on supplemental synthetic logs.
+
+
 Scope: 2024-01-01 to 2025-12-31
 
 ## Quick Summary

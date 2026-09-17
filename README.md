@@ -1,285 +1,82 @@
 # Synthetic Global Collectible RPG Analytics
 
-[한국어 요약 (Korean Summary)](README_KR.md)
+[한국어](README_KR.md) · [Hiring review](docs/hiring_readiness_review.md) · [Reproduce](#reproduce)
 
-An end-to-end analytics portfolio project following the first two years of a
-fictional **character-collection, turn-based mobile player-versus-environment
-(PvE) RPG** across South Korea (KR), Japan (JP), and a fictional Global West
-region.
+**A Game Operations → Data Analyst portfolio: DA 70% + Analytics Engineer 30%.**
+I frame live-service business questions, check whether the metrics are valid, and turn descriptive findings into testable decisions. All data is independently generated and fictional; no production player records or commercial impact are claimed.
 
-The project combines a **data-analysis-led narrative (approximately 70%)**
-with **analytics-engineering practices (approximately 30%)**. It turns business
-questions into a reproducible workflow: synthetic data generation, clearly
-defined table grain (what each row represents), cross-checked metrics, and
-automated tests.
+**Questions:** Which acquisition cohorts warrant follow-up? Is weak boss participation an entry problem? Does a subscription add value or coincide with a spending shift? When should an incident response close?
 
-| Scope | Definition |
+**Data:** six aggregate scenario tables (2024–2025; KR, JP, Global West) plus a separate 360-user registration/login example. The two populations are not linked. Aggregate D30 is a **nested checkpoint proxy**; the added SQL analysis measures **session-based exact-day D7/D30**.
+
+| Evidence from the synthetic scenario | Decision supported, not a causal conclusion |
 |---|---|
-| Observation period | 2024-01-01 to 2025-12-31 |
-| Public datasets | 6 tables, 27,351 synthetic rows |
-| Core themes | lifecycle, retention, PvE content, monetization, incident recovery, regional strategy |
-| Tools and methods | SQL (SQLite), Python, pandas, NumPy, Matplotlib, Seaborn, unit testing |
+| Astra cohort size +50.07%, D30 checkpoint proxy −2.44 pp | Instrument acquisition mix and test onboarding before scaling acquisition. | <!-- claim:astra_crossover_2025_cohort_change_pct:50.07 claim:astra_crossover_2025_d30_change_pp:-2.44 -->
+| Astra normal boss participation index 82.17 (reference 100) | Test eligible-user entry communication; comparable entrant outcomes do not rule out selection. | <!-- claim:astra_normal_participation_index:82.17 -->
+| Subscription-window revenue +72.21%; adjacent-offer revenue per payer-day −13.32% in post14 | Test offer differentiation in all regions; buyer switching is unobserved. | <!-- claim:subscription_revenue_change_pct:72.21 claim:adjacent_post14_change_pct:-13.32 -->
+| Compensation-window returned-user index 293.95 vs revenue index 56.19 (reference 100) | Separate technical restoration, user activity and commercial follow-up. | <!-- claim:compensation_returned_index:293.95 claim:compensation_revenue_index:56.19 -->
 
-## Data Provenance and Confidentiality
+**Why trust the workflow:** cross-table business invariants exposed impossible payer counts that earlier tests missed. Corrected source data, independent SQL/pandas reconciliation, generated evidence and a reproducible pipeline now check the results. [What changed after validation](docs/validation_changes.md).
 
-> **Domain-informed, not production-data-derived.**
+**What I would do next:** instrument missing exposure/eligibility/payment facts, then run a reversible pilot with defined primary KPIs, guardrails and stop rules. No experiment has been run. [Action framework](docs/decision_plan.md).
 
-The business questions, KPI relationships, and operational scenarios reflect
-the author's live-service game operations experience. However, every record,
-value, event name, product, and timeline was independently designed and
-deterministically generated for this project.
+## Evidence of DA 70% + AE 30%
 
-No proprietary dataset was copied, transformed, anonymized, or used to
-calibrate the published data. The repository contains no real player data,
-company schema, company identifier, or actual service incident.
+| DA: decision-making and communication | AE: trustworthy analytical inputs |
+|---|---|
+| [Business questions and metric definitions](docs/analysis_spec.md) | [Table grain and data model](docs/data_model.md) |
+| [Six analyses](#analysis-details) and [assumption sensitivity](docs/sensitivity.md) | [Cross-table business contracts](src/data_contracts.py) |
+| [Evidence → hypothesis → action → stopping rules](docs/decision_plan.md) | [User-level cohort SQL](sql/user_retention.sql): CTEs, joins, date logic, window function |
+| [Operations experience: contribution/evidence prompts](docs/operations_to_da.md) | [Independent pandas reconciliation](src/user_retention.py), [edge-case tests](tests/test_user_retention.py) |
 
-See [Scenario and Synthetic Data Design](docs/scenario_design.md) for the full
-design rationale and fictional service timeline.
+The ratio describes portfolio emphasis, not measured job tenure. Five years of operations experience is not presented as five years of DA experience. Specific workplace accomplishments require the author's own supporting evidence.
 
-## Audit and hiring review
+## User-level exact-day retention
 
-A source-model audit found impossible payer counts despite 64 passing original
-tests. The correction changes payer-derived results and withdraws the former
-JP-only subscription warning. [Findings and correction](docs/audit_review.md) ·
-[Recomputed claims](docs/verified_claims.md) · [Sensitivity](docs/sensitivity.md) ·
-[Decision and experiment plan](docs/decision_plan.md) · [Data model](docs/data_model.md).
+[Metric specification](docs/user_retention.md) · [Generated cohort results](docs/user_retention_results.md)
 
-## Quick Overview
+The SQL counts registered users who log in on exactly day 7 or 30. Each horizon has its own mature-user denominator. It handles duplicate deliveries, multiple sessions, late arrivals and an explicit UTC snapshot. A user can return on D30 without returning on D7. SQL and pandas must agree on every output count and rate.
 
-The analysis treats the service as one connected lifecycle rather than a set of
-isolated dashboards:
+The small supplemental population demonstrates measurement correctness; it neither validates the original aggregate scenario's player-level mechanisms nor establishes regional rankings. March cohorts have incomplete observation and must not be compared as full-month D30 results.
 
-1. **Event durability:** Did major events create lasting player activity or
-   only temporary traffic?
-2. **Acquisition quality:** Why did two well-known collaborations attract
-   players with different long-term retention?
-3. **Core-content alignment:** Did event traffic reach the featured PvE boss,
-   and where did the observed player journey break?
-4. **Subscription value:** Did the new PvE-focused subscription generate
-   additional spending or shift spending away from existing offers?
-5. **Recovery completeness:** Did players returning after an outage also mean
-   that revenue and retention had recovered?
-6. **Global versus regional response:** Which problems required one shared
-   response, and which needed different regional priorities?
+## Analysis details
 
-Before evaluating an outcome, the analysis defines its comparison baseline,
-the threshold for a meaningful change, the period used to judge whether the
-change lasted, and the warning conditions. `Successful`, `Mixed`, and
-`Underperforming` labels are assigned only to outcomes covered by all required
-checks.
+All six legacy analyses use the aggregate scenario. “Recovery” refers to a return toward a declared reference, not restored trust or the same individuals returning. Retention labels in legacy charts/column names denote the documented checkpoint proxy.
 
-## Selected Findings
+1. [Lifecycle](docs/findings/analysis_01_lifecycle.md): event calendar and contextual persistence.
+2. [Acquisition quality](docs/findings/analysis_02_retention.md): volume versus checkpoint proxy.
+3. [PvE participation](docs/findings/analysis_03_pve.md): entry/selection hypothesis, no individual funnel claim.
+4. [Monetization](docs/findings/analysis_04_monetization.md): total revenue versus adjacent-offer mix.
+5. [Incident](docs/findings/analysis_05_incident.md): separate operational, activity and commercial indices.
+6. [Regional response](docs/findings/analysis_06_regional_strategy.md): shared warnings, assumption-sensitive severity.
 
-- **Event durability — The anniversary remained elevated against a strong
-  holiday baseline, while the event calendar expanded.** Planned live-service
-  events covered 17.5% of 2024 calendar days and generated 33.3% of annual
-  revenue. In 2025, those shares rose to 31.0% of days and 54.5% of revenue,
-  while the revenue-share/day-share ratio declined from 1.90× to 1.76×. The
-  First Anniversary increased daily active users (DAU) by 34.7% relative to its
-  holiday baseline and remained 49.9% above that reference afterward. This
-  supports contextual persistence relative to an elevated reference, not an
-  isolated anniversary-effect estimate.
-- **Collaboration quality — More acquisition did not ensure a higher
-  retained share.** Players acquired during the Fantasy collaboration formed a
-  79.2% larger cohort than the reference and improved 30-day retention (D30) by
-  2.74 percentage points. Astra produced a 50.1% larger cohort, but its D30 was
-  2.44 percentage points lower. The same volume-quality trade-off appeared in
-  all three regions.
-- **Core-content entry — Too few players reached Astra's boss fight.** The
-  share of daily active users recorded as participants reached only 82.2% of
-  the usual standard-difficulty level.
-  Entrants had comparable clear rates and attempt burden. This supports an
-  entry/selection hypothesis; aggregate tables do not identify the individual
-  journey or rule out difficulty-related self-selection.
-- **Subscription value — Revenue grew, but adjacent offers weakened after the
-  launch.** Daily revenue rose 72.2% and paying users rose 57.9% versus
-  the 30-day local baseline, but the new subscription accounted for only 25.5%
-  of the observed revenue increase. After accounting for the larger payer
-  base, combined revenue from the three adjacent recurring offers per service
-  payer-day fell 13.3% in the following 14 days. This creates a reallocation
-  warning rather than proof that individual buyers switched products. The
-  result was **Mixed**.
-- **Incident recovery — Players returned before revenue and retention
-  recovered.** The outage reduced all observable activity and commerce to
-  zero. Compensation then raised returned users to 293.9% of baseline, while
-  revenue reached only 56.2%. Daily operations eventually met their recovery
-  thresholds, but 30-day retention remained 1.23 percentage points below its
-  pre-incident reference. That retention comparison identifies an unresolved
-  post-recovery gap; overlapping cohort contexts prevent treating it as an
-  outage-only causal estimate.
-- **Regional strategy — One global plan would overlook different local
-  priorities.** KR's weakest post-recovery new-user acquisition signal called
-  for an acquisition-recovery diagnostic, all regions showed an immediate
-  adjacent-offer warning, and Global West needed stronger
-  retention-quality checks before further acquisition growth.
+[Source dictionary](docs/data_dictionary.md) · [Synthetic scenario design](docs/scenario_design.md) · [Recomputed headline values](docs/verified_claims.md) · [Notebook](notebooks/game_user_behavior_analysis.ipynb)
 
-These are descriptive results from an authored synthetic scenario, not causal
-estimates or industry benchmarks.
+## What changed after validation
 
-## Visual Decision Summary
+A payer-union inconsistency survived the original tests because those tests did not reconcile unique payers with product-level buyer bounds. Correcting PU changed payer-derived conclusions and removed the JP-only warning. Revenue, DAU and checkpoint source data stayed unchanged. New safeguards check business meaning as well as reproducibility. The second pass adds independent exact-day logs without changing those validated aggregate results. [Detailed before/after](docs/validation_changes.md).
 
-The README shows one decision chart from each analysis. The linked finding
-documents contain the complete evidence set, comparison rules, and limitations.
+## Reproduce
 
-### 1. Lifecycle and Event Dependence
-
-![Indexed regional lifecycle](images/lifecycle_indexed_by_region.png)
-
-Each regional series is indexed to its own DAU on January 1, 2024, where
-**100 represents that starting level**. The plotted values use a seven-day
-rolling average. This makes relative changes comparable without implying that
-the three regions have the same absolute DAU.
-[Read Analysis 1 findings](docs/findings/analysis_01_lifecycle.md).
-
-### 2. Acquisition Quality and Retention
-
-![Collaboration cohort retention comparison](images/collaboration_retention_comparison.png)
-
-Fantasy expanded its acquisition cohort and improved retention at D1, D7, and
-D30. Astra also attracted more players and improved D1, but its D7 and D30
-retention rates fell below their reference cohorts.
-[Read Analysis 2 findings](docs/findings/analysis_02_retention.md).
-
-### 3. Event-to-Core-PvE Alignment
-
-![Event and core PvE alignment](images/event_pve_alignment.png)
-
-> **Key diagnostic:** Astra attracted players, but too few reached the featured
-> boss relative to DAU. Entrant outcomes were comparable, supporting an entry
-> hypothesis that requires eligibility and exposure logs to test.
-
-[Read Analysis 3 findings](docs/findings/analysis_03_pve.md).
-
-### 4. Revenue Growth and Subscription Value
-
-![Adjacent-product revenue per service payer-day](images/adjacent_product_cannibalization.png)
-
-The launch coincided with revenue and paying-user growth, but revenue from every
-existing recurring offer crossed the -5% warning line during the following
-14 days. Aggregate sales cannot determine whether the same buyers switched
-products, so this is treated as a portfolio warning rather than proven
-cannibalization.
-[Read Analysis 4 findings](docs/findings/analysis_04_monetization.md).
-
-### 5. Incident and Recovery
-
-![Reactivation and commercial recovery](images/incident_reactivation_commercial_bridge.png)
-
-Compensation brought users back much faster than it restored paying users or
-revenue. Even after daily operations normalized, 30-day retention remained
-below its pre-incident reference. The cohort comparison is a recovery-quality
-check, not an outage-only causal estimate.
-[Read Analysis 5 findings](docs/findings/analysis_05_incident.md).
-
-### 6. Overall Findings and Recommendations
-
-![Regional guardrail matrix](images/regional_guardrail_matrix.png)
-
-All three regions show immediate and persistent adjacent-product warnings
-after correcting impossible payer counts. KR has the weakest acquisition
-recovery signal; Global West combines scale upside with the largest D30 gap.
-Aggregate sales do not prove buyer-level switching.
-[Read Analysis 6 findings](docs/findings/analysis_06_regional_strategy.md).
-
-## Overall Conclusion
-
-The aggregate scenario identifies three investigation priorities: **campaign awareness to core-content entry, new-product
-growth to adjacent-offer stability, and technical restoration to cohort
-recovery**.
-
-The recommended order is to add shared player-level diagnostics and guardrails
-first, then act on the evidence by region: investigate qualified acquisition
-and onboarding in KR, test recurring-offer positioning across all regions, and apply
-retention-durability gates before scaling acquisition further in Global West.
-This sequence keeps the first response measurable and reversible instead of
-jumping directly to difficulty changes, product removal, or more acquisition
-spend.
-
-## Data and Reproducibility
-
-| Dataset | What one row represents (grain) | Rows |
-|---|---|---:|
-| `daily_kpis.csv` | date × region | 2,193 |
-| `retention_cohorts.csv` | cohort month with a complete D30 window × region | 69 |
-| `events.csv` | event × applicable region | 54 |
-| `products.csv` | product | 12 |
-| `daily_product_sales.csv` | date × region × product | 24,285 |
-| `boss_event_metrics.csv` | date × region × boss × difficulty | 738 |
-
-```mermaid
-flowchart LR
-    A["Scenario rules & generator"] --> B["6 analysis-ready tables"]
-    B --> C["Quality tests & cross-checks"]
-    C --> D["6 decision analyses"]
-    D --> E["Charts, findings & actions"]
-```
-
-The pipeline checks that every table is complete, internally consistent, and
-safe to analyze. The final suite contains **78 automated tests**.
-
-<details>
-<summary><strong>Technical validation coverage</strong></summary>
-
-The tests cover complete table grains, non-negative KPIs, the rule that paying
-users never exceed DAU (`PU ≤ DAU`), retention and boss-funnel hierarchies,
-list-price revenue, daily revenue reconciliation, event-only product
-availability, overlapping comparison windows, incomplete observation periods,
-launch-window reconciliation, revenue decomposition, monetization warning
-conditions, incident-stage boundaries, and recovery thresholds.
-
-</details>
+Python 3.12; SQLite is included in Python. Run from repository root:
 
 ```bash
-pip install -r requirements.txt
-python -m src.run_pipeline
+python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
+MPLBACKEND=Agg python -m src.run_pipeline
+MPLBACKEND=Agg python -m src.verify_publication
 ```
 
-The default command validates the **checked-in CSVs** before analysis, runs all
-seven analysis scripts, executes SQL/pandas parity, writes sensitivity tables and
-checks generated finding documents. To deliberately regenerate source CSVs and
-refresh evidence after a model change:
+The pipeline reads committed sources, regenerates analysis CSVs/charts and checks SQL parity and generated reports. `verify_publication` executes all notebook code cells in order and checks README claims against generated source evidence. CI runs these same commands. Generated outputs are in `outputs/`.
+
+Intentional source/document regeneration only:
 
 ```bash
-python -m src.run_pipeline --regenerate --refresh-docs
+MPLBACKEND=Agg python -m src.run_pipeline --regenerate --refresh-docs
 ```
 
-SQL examples: [schema](sql/schema.sql), [CTEs and window metrics](sql/metrics.sql).
-The SQL/pandas check covers 2,313 rows and 9,476 metric cells across four views.
-
-
-Generated analysis tables are written to the Git-ignored `outputs/` directory.
-
-## Documentation
-
-- [Scenario and Synthetic Data Design](docs/scenario_design.md)
-- [Analysis Specification](docs/analysis_spec.md)
-- [Data Dictionary](docs/data_dictionary.md)
-- [Analysis 1 Findings](docs/findings/analysis_01_lifecycle.md)
-- [Analysis 2 Findings](docs/findings/analysis_02_retention.md)
-- [Analysis 3 Findings](docs/findings/analysis_03_pve.md)
-- [Analysis 4 Findings](docs/findings/analysis_04_monetization.md)
-- [Analysis 5 Findings](docs/findings/analysis_05_incident.md)
-- [Analysis 6 Findings](docs/findings/analysis_06_regional_strategy.md)
-- [Executable Notebook](notebooks/game_user_behavior_analysis.ipynb)
+`--regenerate` reproduces both the six-table scenario and the separate user-log population. Review any resulting source/evidence diff. Four aggregate SQL views and one user-cohort SQL query are reconciled independently with pandas. Tests include business bounds and manually constructed temporal edge cases; passing tests do not establish external validity.
 
 ## Limitations
 
-- Scenario effects are authored assumptions, not estimated industry benchmarks.
-- Aggregated synthetic data cannot establish causal effects.
-- D1/D7/D30 are authored nested-checkpoint retention proxies, not exact-day
-  retention reconstructed from sessions; see the Data Dictionary.
-- PU is a feasible synthetic union under an explicit overlap assumption, not
-  an observed identity-level distinct count.
-- No user-level transactions, gacha pulls, character ownership, sentiment, or
-  individual combat logs are included.
-- Gross synthetic USD excludes taxes, refunds, and platform fees.
-- Trust is not directly measured; retention and payer behavior are only
-  behavioral proxies.
-- D30 cohorts are published only through November 2025 because the December
-  cohort is not mature within the observation window.
-
-## Author
-
-Han Sangwoo  
-Live-Service Game Operations → Data Analytics / Analytics Engineering
+Authored synthetic relationships cannot establish causality, real-world ROI or generalizable retention rates. Daily PU remains a modeled feasible union, not observed unique buyers. There are no individual transactions, VOC/CS records or experiment assignments. Cohort maturity and baseline selection matter; regional severity can change with payer assumptions. [Remaining weaknesses and interview preparation](docs/hiring_readiness_review.md).

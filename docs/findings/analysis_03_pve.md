@@ -1,5 +1,8 @@
 # Analysis 3: Core-Content Entry and PvE Engagement
 
+> All evidence here is synthetic scenario output. D1/D7/D30 refer to authored nested checkpoint proxies, not session-based exact-day retention. Descriptive differences do not identify treatment effects. The separate [user-login analysis](../user_retention.md) uses actual exact-day logic on supplemental synthetic logs.
+
+
 Scope: four limited PvE bosses across KR, JP, and Global West
 
 > Measurement boundary: participant-day / DAU-day rates do not trace a player

@@ -29,6 +29,11 @@ Undefined rates use NULL/NaN when their denominator is zero, including the full
 outage. Zero activity and absent data are different states.
 
 Product purchase cycles are metadata, not simulated renewal constraints. The
-payer union is feasible but not identified; see the sensitivity report. A future
-user-event model is needed to demonstrate renewal, buyer migration, event
-attribution and conventional exact-day cohort SQL.
+payer union is feasible but not identified; see the sensitivity report. The supplemental user-event model below demonstrates exact-day cohort SQL. Renewal, buyer migration and campaign attribution still require additional evidence.
+
+
+## Supplemental user cohort (separate population)
+
+Two minimum tables add user-level analysis without pretending to reconstruct the original six aggregate facts. `user_cohort_users` is one user (PK user_id), with UTC registration and registration region. `user_cohort_logins` is one event delivery, with event_id, user_id FK, occurrence UTC and receipt UTC. Event redelivery is allowed; conflicting event payloads are rejected. Python contracts validate before either SQLite or pandas reads the data.
+
+One user joins to many deliveries; reduce these to distinct user-days before joining exact-day targets. Output grain is registration month × region × horizon. Each horizon has a maturity-filtered denominator. Do not join these users to the original daily aggregates: populations and generation processes are independent. [Full metric contract and reproducibility](user_retention.md).

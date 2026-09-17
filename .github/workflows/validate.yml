@@ -14,6 +14,9 @@ jobs:
       - run: python -m src.run_pipeline
         env:
           MPLBACKEND: Agg
+      - run: python -m src.verify_publication
+        env:
+          MPLBACKEND: Agg
       - uses: actions/upload-artifact@v4
         with:
           name: reproduced-analysis

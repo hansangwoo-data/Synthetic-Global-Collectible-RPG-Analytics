@@ -119,7 +119,7 @@ per eligible assigned user and retention guardrails. See [decision plan](../deci
 
 ## Decision
 
-**Mixed: operational recovery, retention gap remains.** The final September
+**Mixed: operational indices meet scenario thresholds; a new-cohort checkpoint gap remains.** The final September
 21–30 window meets DAU ≥95, PU ≥90 and revenue ≥90 in every region.
 Pooled October–November D30 is {final.set_index('scope').loc['ALL','d30_change_pp']:.2f} pp below June.
 These are descriptive differences across cohorts, not an outage treatment effect.
@@ -144,7 +144,7 @@ Returned-user totals count daily reactivation, not unique compensation claimants
 Compensation returns reach 293.95% of baseline but revenue reaches 56.19%.
 **After correcting impossible service PU, payers no longer recover ahead of
 revenue in the remediation stage.** Both remain below their operational targets.
-Activity recovers first; commercial recovery is assessed separately.
+Activity indices return toward reference first; commercial indices are assessed separately. This does not measure individual recovery.
 
 ## Regional exit checks
 
@@ -190,11 +190,10 @@ score combines revenue, retention points and participation indices.
 
 '''+table(ev,['region','fantasy_d30_change_pp','astra_d30_change_pp','astra_normal_participation_index','bm_launch_revenue_change_pct','bm_adjacent_launch_change_pct','bm_adjacent_post_14_change_pct','incident_nru_recovery_index','incident_d30_change_pp'])+'''
 
-KR has the lowest NRU recovery index, so acquisition mix is an investigation
-priority; channel causes and CAC are unobserved. JP retains the strongest Fantasy
-D30 improvement, but no longer has a unique offer-warning mechanism. Global West
+Within this synthetic comparison, KR has the lowest NRU reference index, so acquisition mix is an investigation
+priority; channel causes and CAC are unobserved. JP has the largest Fantasy-context D30 checkpoint difference in this scenario, but no longer has a unique offer-warning mechanism. Global West
 combines the strongest launch-revenue response with the largest launch adjacency
-and post-recovery D30 gaps; additional spend should await quality diagnostics.
+and later new-cohort D30 checkpoint gaps; additional spend should await quality diagnostics.
 
 ## Guardrails
 
@@ -258,6 +257,10 @@ minimum detectable effect and dependence-aware analysis.
     add('compensation_returned_index',comp.returned_users_recovery_index)
     add('compensation_revenue_index',comp.revenue_recovery_index)
     add('residual_d30_change_pp',final.set_index('scope').loc['ALL','d30_change_pp'])
+    scope = '\n> All figures are synthetic scenario comparisons. Legacy D30 means a nested checkpoint proxy, not session-based exact-day retention. Recovery indices compare reference windows, not matched individual outcomes or trust.\n\n'
+    doc4 = doc4.replace('\n\n', '\n'+scope, 1)
+    doc5 = doc5.replace('\n\n', '\n'+scope, 1)
+    doc6 = doc6.replace('\n\n', '\n'+scope, 1)
     return {'docs/findings/analysis_04_monetization.md':doc4,'docs/findings/analysis_05_incident.md':doc5,
         'docs/findings/analysis_06_regional_strategy.md':doc6,'docs/sensitivity.md':docsen,
         'docs/verified_claims.md':header+'# Recomputed headline claims\n\nSource: the checked-in six CSVs. Rebuild with `python -m src.build_evidence`.\n\n'+table(pd.DataFrame(claims))+'\n'}

@@ -14,7 +14,7 @@ The analytical questions and operational trade-offs reflect the author's
 experience with live-service game operations. Examples include separating
 traffic from retention quality, checking whether event traffic reaches core
 content, evaluating product cannibalization, and distinguishing activity
-recovery from trust recovery.
+reference-index changes from unmeasured player trust.
 
 The published data does not originate from an employer or live game:
 
@@ -150,3 +150,8 @@ or combat decisions.
 For example, low boss participation can be observed. A perceived paywall may be
 proposed as a hypothesis, but it cannot be established without player-level
 power, ownership, purchase, and exposure data.
+
+
+## Supplemental login example
+
+A separate deterministic generator in `src/user_retention.py` creates 360 registrations over January–March 2025 and daily login opportunities through March 31, with repeat deliveries and multiple sessions. Activity probability is authored as `0.12 + 0.58 * 0.94 ** days_since_registration` (registration day always logs in). Region assignment and acquisition timing are synthetic design choices. Apparent subgroup differences are not discovered real-world behavior. This population has no linkage to the six aggregate tables and does not back their DAU, PU, campaign or checkpoint counts. [Metric contract](user_retention.md).
