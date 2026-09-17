@@ -3,7 +3,7 @@
 [한국어](README_KR.md) · [Reproduce](#reproduce)
 
 **A Game Operations → Data Analyst portfolio: DA 70% + Analytics Engineer 30%.**
-AThis project reflects my transition from five years in Game Operations into data analysis. It explores acquisition, boss participation, monetization, and incident follow-up in a fictional collectible RPG using independently generated synthetic data.
+This project reflects my transition from five years in Game Operations into data analysis. It explores acquisition, boss participation, monetization, and incident follow-up in a fictional collectible RPG using independently generated synthetic data.
 
 **Questions:** Which acquisition cohorts brought in more players but retained them less effectively? Is weak boss participation an entry problem? Does a subscription add value or coincide with a spending shift? When should an incident response close?
 
@@ -69,4 +69,4 @@ The pipeline reads committed sources, regenerates analysis CSVs/charts and check
 
 ## Limitations
 
-This project uses synthetic data, so the findings should be treated as scenario-based analysis rather than real production evidence. The dataset does not include individual transactions, VOC/CS records, or experiment assignments, so buyer switching, boss-entry behavior, and causal effects cannot be confirmed at the user level. The separate login example is only used to demonstrate exact-day retention measurement and is not linked to the main scenario data. [Remaining weaknesses and interview preparation](docs/hiring_readiness_review.md).
+This project uses synthetic data, so the findings should be treated as scenario-based analysis rather than real production evidence. The dataset does not include individual transactions, VOC/CS records, or experiment assignments, so buyer switching, boss-entry behavior, and causal effects cannot be confirmed at the user level. The separate login example is only used to demonstrate exact-day retention measurement and is not linked to the main scenario data. [Remaining weaknesses and interview preparation]
