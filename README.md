@@ -33,9 +33,7 @@ AThis project reflects my transition from five years in Game Operations into dat
 
 [Metric specification](docs/user_retention.md) · [Generated cohort results](docs/user_retention_results.md)
 
-The SQL counts registered users who log in on exactly day 7 or 30. Each horizon has its own mature-user denominator. It handles duplicate deliveries, multiple sessions, late arrivals and an explicit UTC snapshot. A user can return on D30 without returning on D7. SQL and pandas must agree on every output count and rate.
-
-March cohorts have incomplete observation and must not be compared as full-month D30 results.
+The SQL calculates D7 and D30 retention from user login records. Only users with enough observation time are included in each calculation. Duplicate login records and multiple sessions on the same day are removed before counting retained users. D7 and D30 are calculated independently. This means a user can return on D30 even if they did not log in on D7.  The SQL results are then cross-checked against pandas.  
 
 ## Analysis details
 
