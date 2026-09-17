@@ -13,8 +13,8 @@ AThis project reflects my transition from five years in Game Operations into dat
 
 | Finding | What to check next |
 |---|---|
-| Astra cohort size +50.07%, D30 checkpoint proxy −2.44 pp | Instrument acquisition mix and test onboarding before scaling acquisition. | <!-- claim:astra_crossover_2025_cohort_change_pct:50.07 claim:astra_crossover_2025_d30_change_pp:-2.44 -->
-| Astra normal boss participation index 82.17 (reference 100) | Test entry communication for eligible users. | <!-- claim:astra_normal_participation_index:82.17 -->
+| Astra collaboration cohort size +50.07%, D30 checkpoint proxy −2.44 pp | Instrument acquisition mix and test onboarding before scaling acquisition. | <!-- claim:astra_crossover_2025_cohort_change_pct:50.07 claim:astra_crossover_2025_d30_change_pp:-2.44 -->
+| Astra collaboration normal boss participation index 82.17 (reference 100) | Test entry communication for eligible users. | <!-- claim:astra_normal_participation_index:82.17 -->
 | Subscription-window revenue +72.21%; adjacent-offer revenue per payer-day −13.32% in post14 | Test offer differentiation in all regions. | <!-- claim:subscription_revenue_change_pct:72.21 claim:adjacent_post14_change_pct:-13.32 -->
 | Compensation-window returned-user index 293.95 vs revenue index 56.19 (reference 100) | Separate technical restoration, user activity and commercial follow-up. | <!-- claim:compensation_returned_index:293.95 claim:compensation_revenue_index:56.19 -->
 
