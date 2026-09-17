@@ -33,7 +33,7 @@ AThis project reflects my transition from five years in Game Operations into dat
 
 [Metric specification](docs/user_retention.md) · [Generated cohort results](docs/user_retention_results.md)
 
-The SQL calculates D7 and D30 retention from user login records. Only users with enough observation time are included in each calculation. Duplicate login records and multiple sessions on the same day are removed before counting retained users. D7 and D30 are calculated independently. This means a user can return on D30 even if they did not log in on D7.  The SQL results are then cross-checked against pandas.  
+The SQL calculates D7 and D30 retention from user login records. Only users who have had enough time to reach D7 or D30 are included in each calculation. Duplicate login records and multiple sessions on the same day are removed before counting retained users. D7 and D30 are calculated independently. This means a user can return on D30 even if they did not log in on D7.  The SQL results are then cross-checked against pandas.  
 
 ## Analysis details
 
