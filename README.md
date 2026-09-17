@@ -1,35 +1,33 @@
 # Synthetic Global Collectible RPG Analytics
 
-[한국어](README_KR.md) · [Hiring review](docs/hiring_readiness_review.md) · [Reproduce](#reproduce)
+[한국어](README_KR.md) · [Reproduce](#reproduce)
 
 **A Game Operations → Data Analyst portfolio: DA 70% + Analytics Engineer 30%.**
-I frame live-service business questions, check whether the metrics are valid, and turn descriptive findings into testable decisions. All data is independently generated and fictional; no production player records or commercial impact are claimed.
+After five years in Game Operations, I am moving into data analysis. This project explores acquisition, boss participation, monetization and incident follow-up in a fictional collectible RPG, using independently generated synthetic data.
 
 **Questions:** Which acquisition cohorts warrant follow-up? Is weak boss participation an entry problem? Does a subscription add value or coincide with a spending shift? When should an incident response close?
 
 **Data:** six aggregate scenario tables (2024–2025; KR, JP, Global West) plus a separate 360-user registration/login example. The two populations are not linked. Aggregate D30 is a **nested checkpoint proxy**; the added SQL analysis measures **session-based exact-day D7/D30**.
 
-| Evidence from the synthetic scenario | Decision supported, not a causal conclusion |
+**Methods:** Python/pandas for analysis, SQLite for aggregate and user-level queries, and Matplotlib/Seaborn for charts. SQL results are checked against pandas.
+
+| Finding | What to check next |
 |---|---|
 | Astra cohort size +50.07%, D30 checkpoint proxy −2.44 pp | Instrument acquisition mix and test onboarding before scaling acquisition. | <!-- claim:astra_crossover_2025_cohort_change_pct:50.07 claim:astra_crossover_2025_d30_change_pp:-2.44 -->
-| Astra normal boss participation index 82.17 (reference 100) | Test eligible-user entry communication; comparable entrant outcomes do not rule out selection. | <!-- claim:astra_normal_participation_index:82.17 -->
-| Subscription-window revenue +72.21%; adjacent-offer revenue per payer-day −13.32% in post14 | Test offer differentiation in all regions; buyer switching is unobserved. | <!-- claim:subscription_revenue_change_pct:72.21 claim:adjacent_post14_change_pct:-13.32 -->
+| Astra normal boss participation index 82.17 (reference 100) | Test entry communication for eligible users. | <!-- claim:astra_normal_participation_index:82.17 -->
+| Subscription-window revenue +72.21%; adjacent-offer revenue per payer-day −13.32% in post14 | Test offer differentiation in all regions. | <!-- claim:subscription_revenue_change_pct:72.21 claim:adjacent_post14_change_pct:-13.32 -->
 | Compensation-window returned-user index 293.95 vs revenue index 56.19 (reference 100) | Separate technical restoration, user activity and commercial follow-up. | <!-- claim:compensation_returned_index:293.95 claim:compensation_revenue_index:56.19 -->
 
-**Why trust the workflow:** cross-table business invariants exposed impossible payer counts that earlier tests missed. Corrected source data, independent SQL/pandas reconciliation, generated evidence and a reproducible pipeline now check the results. [What changed after validation](docs/validation_changes.md).
+**Next steps:** collect exposure, eligibility and payment logs, then test the proposed changes on a small scale. The [experiment plan](docs/decision_plan.md) sets out success measures and when to stop.
 
-**What I would do next:** instrument missing exposure/eligibility/payment facts, then run a reversible pilot with defined primary KPIs, guardrails and stop rules. No experiment has been run. [Action framework](docs/decision_plan.md).
+## Methods and analysis
 
-## Evidence of DA 70% + AE 30%
-
-| DA: decision-making and communication | AE: trustworthy analytical inputs |
+| Analysis | Data preparation and checks |
 |---|---|
 | [Business questions and metric definitions](docs/analysis_spec.md) | [Table grain and data model](docs/data_model.md) |
 | [Six analyses](#analysis-details) and [assumption sensitivity](docs/sensitivity.md) | [Cross-table business contracts](src/data_contracts.py) |
-| [Evidence → hypothesis → action → stopping rules](docs/decision_plan.md) | [User-level cohort SQL](sql/user_retention.sql): CTEs, joins, date logic, window function |
-| [Operations experience: contribution/evidence prompts](docs/operations_to_da.md) | [Independent pandas reconciliation](src/user_retention.py), [edge-case tests](tests/test_user_retention.py) |
-
-The ratio describes portfolio emphasis, not measured job tenure. Five years of operations experience is not presented as five years of DA experience. Specific workplace accomplishments require the author's own supporting evidence.
+| [Proposed experiments](docs/decision_plan.md) | [User-level cohort SQL](sql/user_retention.sql): CTEs, joins, date logic, window function |
+| [Connecting operations experience to analysis](docs/operations_to_da.md) | [Independent pandas reconciliation](src/user_retention.py), [edge-case tests](tests/test_user_retention.py) |
 
 ## User-level exact-day retention
 
@@ -37,15 +35,15 @@ The ratio describes portfolio emphasis, not measured job tenure. Five years of o
 
 The SQL counts registered users who log in on exactly day 7 or 30. Each horizon has its own mature-user denominator. It handles duplicate deliveries, multiple sessions, late arrivals and an explicit UTC snapshot. A user can return on D30 without returning on D7. SQL and pandas must agree on every output count and rate.
 
-The small supplemental population demonstrates measurement correctness; it neither validates the original aggregate scenario's player-level mechanisms nor establishes regional rankings. March cohorts have incomplete observation and must not be compared as full-month D30 results.
+March cohorts have incomplete observation and must not be compared as full-month D30 results.
 
 ## Analysis details
 
-All six legacy analyses use the aggregate scenario. “Recovery” refers to a return toward a declared reference, not restored trust or the same individuals returning. Retention labels in legacy charts/column names denote the documented checkpoint proxy.
+These six analyses use the aggregate scenario. Their D1/D7/D30 labels refer to the checkpoint proxy described above.
 
 1. [Lifecycle](docs/findings/analysis_01_lifecycle.md): event calendar and contextual persistence.
 2. [Acquisition quality](docs/findings/analysis_02_retention.md): volume versus checkpoint proxy.
-3. [PvE participation](docs/findings/analysis_03_pve.md): entry/selection hypothesis, no individual funnel claim.
+3. [PvE participation](docs/findings/analysis_03_pve.md): entry and selection hypotheses.
 4. [Monetization](docs/findings/analysis_04_monetization.md): total revenue versus adjacent-offer mix.
 5. [Incident](docs/findings/analysis_05_incident.md): separate operational, activity and commercial indices.
 6. [Regional response](docs/findings/analysis_06_regional_strategy.md): shared warnings, assumption-sensitive severity.
@@ -54,7 +52,7 @@ All six legacy analyses use the aggregate scenario. “Recovery” refers to a r
 
 ## What changed after validation
 
-A payer-union inconsistency survived the original tests because those tests did not reconcile unique payers with product-level buyer bounds. Correcting PU changed payer-derived conclusions and removed the JP-only warning. Revenue, DAU and checkpoint source data stayed unchanged. New safeguards check business meaning as well as reproducibility. The second pass adds independent exact-day logs without changing those validated aggregate results. [Detailed before/after](docs/validation_changes.md).
+A cross-check found that some daily unique payer counts exceeded the sum of product-level buyers. The original tests did not check that relationship. Correcting PU changed payer-derived conclusions and removed the JP-only warning. Revenue, DAU and checkpoint source data stayed unchanged. Cross-table checks and SQL/pandas comparisons now cover the corrected metrics. [Detailed before/after](docs/validation_changes.md).
 
 ## Reproduce
 
@@ -75,8 +73,12 @@ Intentional source/document regeneration only:
 MPLBACKEND=Agg python -m src.run_pipeline --regenerate --refresh-docs
 ```
 
-`--regenerate` reproduces both the six-table scenario and the separate user-log population. Review any resulting source/evidence diff. Four aggregate SQL views and one user-cohort SQL query are reconciled independently with pandas. Tests include business bounds and manually constructed temporal edge cases; passing tests do not establish external validity.
+`--regenerate` reproduces both the six-table scenario and the separate user-log population. Review any resulting source/evidence diff. Four aggregate SQL views and one user-cohort SQL query are reconciled independently with pandas. Tests include business bounds and manually constructed temporal edge cases.
 
 ## Limitations
 
-Authored synthetic relationships cannot establish causality, real-world ROI or generalizable retention rates. Daily PU remains a modeled feasible union, not observed unique buyers. There are no individual transactions, VOC/CS records or experiment assignments. Cohort maturity and baseline selection matter; regional severity can change with payer assumptions. [Remaining weaknesses and interview preparation](docs/hiring_readiness_review.md).
+The findings describe synthetic scenarios, not measured production effects. No experiment has been run, and the results cannot establish causality or real-world ROI.
+
+Daily PU remains a modeled feasible union, not observed unique buyers. There are no individual transactions, VOC/CS records or experiment assignments. Aggregate data cannot show whether individual buyers switched products or where users left the boss-entry path. Comparable entrant outcomes do not rule out difficulty-related selection. “Recovery” means a return toward a reference level, not restored trust or the same players returning.
+
+The separate login example does not explain the aggregate scenario or establish regional rankings. Cohort maturity and baseline selection matter; regional severity can change with payer assumptions. [Remaining weaknesses and interview preparation](docs/hiring_readiness_review.md).

@@ -1,6 +1,6 @@
-# Five years of Game Operations → Data Analyst evidence
+# Connecting Game Operations experience to analysis
 
-The stated background is five years in Game Operations. Specific employers, incidents, personal actions and outcomes have **not been verified in this repository**. The examples below are evidence prompts, not claims that the author performed every task. Portfolio artifacts verify analytical capability only; they do not verify employment history.
+The table connects operations tasks with analytical skills demonstrated in this project. It is a guide for preparing real work examples, not a record of completed workplace projects. Each example needs a specific account of the work personally done and the decisions made by others.
 
 | Operations example to substantiate | DA capability | Verifiable portfolio artifact | Personal contribution / stakeholder boundary to confirm |
 |---|---|---|---|

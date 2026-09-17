@@ -1,10 +1,10 @@
-# Decision Brief and Next Evidence
+# Proposed next steps
 
-## Decision now
+## Where I would start
 
-Fund measurement and a reversible offer/entry test before more acquisition spend.
-The synthetic analysis demonstrates how to define a decision and reject weak
-interpretations. It does not establish real commercial ROI or a production impact.
+Before recommending more acquisition spend, I would collect the missing user-level
+logs and test changes to boss-entry communication and offer benefits. These proposals
+follow from the synthetic analysis; they have not been tested in a live service.
 
 | Priority | Decision owner (proposed) | What is observed | Competing explanations | Evidence needed | Next decision |
 |---|---|---|---|---|---|
