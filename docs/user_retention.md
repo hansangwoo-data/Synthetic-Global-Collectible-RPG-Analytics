@@ -21,7 +21,7 @@ Use **calendar-day** differences, not elapsed 168/720-hour intervals. D30 users 
 
 [SQL](../sql/user_retention.sql) uses CTEs, a window function to select the earliest visible delivery, distinct user-days, horizon expansion, a left join and maturity-aware denominators. The independent [pandas implementation](../src/user_retention.py) uses timestamp normalization and user/date set membership. The SQL and pandas results must match. Validation checks reject orphan logins, conflicting duplicate events, null fields, duplicate users, and invalid timestamps.
 
-## Evidence → hypothesis → decision
+## Interpretation and next step
 
 [Generated results](user_retention_results.md) show observable exact-day return counts, with partial March maturity. These results come from a synthetic activity process, not real player behavior. Regional differences may reflect small sample sizes and registration-date mix.
 
