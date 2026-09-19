@@ -27,7 +27,7 @@ No experiment was run in this repository. This is a design proposal.
 ## Required Data
 
 | Event | key fields | What to check |
-|---|---|---|---|
+|---|---|---|
 | registration | user_id, registered_at, channel, region | duplicates, missing region |
 | session | event_id, user_id, occurred_at | duplicate events, incorrect timestamps |
 | boss eligibility | user_id, boss_id, eligibility | missing eligibility or assignment |
