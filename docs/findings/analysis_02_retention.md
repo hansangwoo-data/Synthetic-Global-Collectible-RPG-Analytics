@@ -52,7 +52,7 @@ Astra increased cohort size by 50.1%, but D30 fell by 2.44 pp. The campaign ther
 
 Fantasy improved at every checkpoint. Astra started slightly above its reference at D1, then fell below it at D7 and D30.
 
-This suggests the main issue appears after the initial acquisition response rather than at first-day activity. The current aggregate data cannot show whether the cause is audience fit, onboarding, progression, content entry or another factor.
+This suggests the main issue appears after the initial acquisition response, not on the first day. The current aggregate data cannot show whether the cause is audience fit, onboarding, progression, content entry or another factor.
 
 ## Next step
 
