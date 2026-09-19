@@ -25,7 +25,7 @@ Use **calendar-day** differences, not elapsed 168/720-hour intervals. D30 users 
 
 [Generated results](user_retention_results.md) show observable exact-day return counts, with partial March maturity. These results come from a synthetic activity process, not real player behavior. Regional differences may reflect small sample sizes and registration-date mix.
 
-**Hypothesis for a real pilot:** a clearer first-week progression path might improve D7 login return. First collect complete login instrumentation and compare complete acquisition cohorts. Then randomize eligible new users within region and acquisition channel. Proposed success/guardrail rules appear in the [decision plan](decision_plan.md). This separate population should not be used to support conclusions from the main scenario.
+**Hypothesis for a real pilot:** a clearer first-week progression path might improve D7 login return. First collect complete login instrumentation and compare complete acquisition cohorts. For a real service, I would first collect complete login data, compare mature cohorts, and then test a clearer first-week progression path with a small controlled rollout.
 
 ## Reproduce and review
 
