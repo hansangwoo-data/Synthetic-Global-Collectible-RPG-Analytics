@@ -39,7 +39,7 @@ The SQL calculates D7 and D30 retention from user login records. Only users who 
 
 These six analyses use the overall scenario data. Their D1/D7/D30 labels refer to the synthetic retention indicator described above.
 
-1. [Lifecycle](docs/findings/analysis_01_lifecycle.md): event calendar and contextual persistence.
+1. [Lifecycle](docs/findings/analysis_01_lifecycle.md): event calendar and post-event traffic.
 2. [Acquisition quality](docs/findings/analysis_02_retention.md): volume versus synthetic retention indicator.
 3. [PvE participation](docs/findings/analysis_03_pve.md): entry and selection hypotheses.
 4. [Monetization](docs/findings/analysis_04_monetization.md): total revenue versus adjacent-offer mix.
