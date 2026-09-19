@@ -24,9 +24,9 @@ follow from the synthetic analysis; they have not been tested in a live service.
 
 No experiment was run in this repository. This is a design proposal.
 
-## Required Data
+## Required data
 
-| Event | key fields | What to check |
+| Event | Key fields | What to check |
 |---|---|---|
 | registration | user_id, registered_at, channel, region | duplicates, missing region |
 | session | event_id, user_id, occurred_at | duplicate events, incorrect timestamps |
@@ -35,5 +35,5 @@ No experiment was run in this repository. This is a design proposal.
 | transaction | transaction_id, user_id, product_id, amount, refund | duplicate charges, refund mismatch |
 | experiment assignment | experiment_id, user_id, variant | reassignment or uneven split |
 
-Use a consistent UTC date boundary and unique event IDs. Exact-day D30 should be calculated only for users with a full 30 days of observation.  
+Use a consistent UTC date boundary and unique event IDs. Exact-day D30 should be calculated only for users with a full 30 days of observation. 
 The current synthetic retention indicator is not a replacement for user-level production logs. The [user-level SQL example](user_retention.md) covers registration and login data; eligibility, payments, exposure, and CS data would still be needed for a real service.
