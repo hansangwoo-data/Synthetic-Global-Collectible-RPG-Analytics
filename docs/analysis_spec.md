@@ -82,6 +82,11 @@ When event windows overlap, the result is treated as contextual rather than attr
 | Clear-rate comparison | within ±2.0 pp |
 | Attempts per participant | within ±0.10 |
 
+Some event thresholds are adjusted by baseline variability in the analysis code.
+
+For D30 improvement checks, the effective threshold may use the larger of the fixed threshold or the recent monthly variation.
+
+
 ## 4. Analysis notes
 
 Retention is measured at month × region grain, so campaign months are treated as context rather than isolated causes.
