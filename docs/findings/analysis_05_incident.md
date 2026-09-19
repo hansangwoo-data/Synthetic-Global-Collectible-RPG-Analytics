@@ -41,6 +41,7 @@ Activity recovered first. Compensation produced a large return spike, but paymen
 This shows why technical recovery, user return and commercial recovery should be tracked separately.
 
 ## 2. Regional recovery
+
 The regional results below use the late-September recovery stage, with D30 compared against the June reference cohort.
 
 ![Regional exits](../../images/incident_regional_exit_guardrails.png)
