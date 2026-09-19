@@ -6,11 +6,11 @@ Before recommending more acquisition spend, I would collect the missing user-lev
 logs and test changes to boss-entry communication and offer benefits. These proposals
 follow from the synthetic analysis; they have not been tested in a live service.
 
-| Priority | Decision owner (proposed) | What is observed | Competing explanations | Evidence needed | Next decision |
-|---|---|---|---|---|---|
-| 1 | Product analyst + content PM | Astra NORMAL participation index 82.2; entrant outcomes comparable | Eligibility, exposure, reward appeal, audience mix, power selection | exposure, eligibility with reason, boss page, first attempt, clear; join by user and event | Choose an entry intervention only after locating the loss among eligible users |
-| 2 | Monetization PM + analyst | Adjacent revenue per payer-day declines in all regions | Buyer migration, new payer composition, renewal timing, assumed payer overlap | User-level transactions, entitlements, renewal, refunds and assignment | Test benefit differentiation before removing or repricing offers |
-| 3 | Incident owner + analyst | Activity indices return toward baseline before commerce; later new-cohort D30 checkpoint proxy remains below reference | Acquisition mix, seasonal context, incident exposure, communication | Affected users, time of failed login, communication exposure, claim, session, purchase | Close operational response separately from cohort quality follow-up |
+| Priority | What I found | What I would check | Next step | 
+|---|---|---|---|
+| 1 | Astra normal boss participation index was 82.2, while users who entered showed similar outcomes | Whether eligible users saw the boss, understood the entry conditions, and found the rewards appealing | Test clearer entry and reward information before changing difficulty | 
+| 2 | Revenue increased after the subscription launch, while adjacent-offer revenue per paying user declined | User-level purchases, subscription ownership, renewals and refunds | Test whether clearer differences between offers reduce spending shifts | 
+| 3 | User activity recovered faster than revenue after the incident | Which users were affected, whether they returned, and whether payment activity recovered | Track technical recovery, user activity and revenue separately |
 
 ## One executable experiment proposal: boss-entry communication
 
