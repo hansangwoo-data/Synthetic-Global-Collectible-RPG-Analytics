@@ -40,7 +40,28 @@ The project focuses on service-level behavior. Individual gacha pulls, purchase 
 
 ## Event timeline
 
-[기존 표 유지]
+## Event timeline
+
+| Period | Fictional event | Intended analytical role |
+|---|---|---|
+| Jan 2024 | Global Launch | High acquisition and onboarding |
+| Jun–Jul 2024 | Half-Anniversary Raid | Milestone event and limited PvE boss |
+| Jul 2024 | Regional Summer Events | KR check-in, JP star festival, and Global West summer event |
+| Sep 2024 | Fantasy Saga Crossover | Genre-fit collaboration |
+| Sep–Oct 2024 | Regional Autumn Festival | Seasonal follow-up that overlaps the crossover's post-window |
+| Dec 2024 | Christmas Festival | Shared seasonal event |
+| Jan 2025 | New Year Festival | Login rewards before the anniversary |
+| Jan 2025 | First Anniversary | Highest-value milestone event |
+| Mar–Apr 2025 | Spring Content Gap | Acquisition and retention deterioration |
+| May–Jun 2025 | PvE Growth Subscription | Revenue lift with possible adjacent-product cannibalization |
+| Jul 2025 | Astra Heroes Crossover | Strong awareness with weaker audience fit |
+| Aug 12, 2025 | Data Center Outage | Full-day unavailability and zero observed activity |
+| Aug 13, 2025 | Partial Service Restoration | Noon restoration after 36 hours offline |
+| Aug 2025 | Delayed Initial Response | Repeated extensions and delayed communication |
+| Aug 2025 | Extraordinary Compensation | Awakened/limited-character selector |
+| Aug–Sep 2025 | Postmortem and Trust Recovery | Root cause, safeguards, and recurrence-prevention plan |
+| Oct 2025 | Regional Autumn Festival | Localized return campaign |
+| Dec 2025 | Christmas Festival | Seasonal pass and event story |
 
 The outage and recovery sequence are fictional and were designed to separate technical recovery, user return and commercial recovery.
 
