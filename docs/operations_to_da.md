@@ -1,6 +1,6 @@
 # Connecting Game Operations experience to analysis
 
-The table connects operations tasks with analytical skills demonstrated in this project. It is a guide for preparing real work examples, not a record of completed workplace projects. Each example needs a specific account of the work personally done and the decisions made by others.
+The table connects operations tasks with analytical skills demonstrated in this project. It is a guide for preparing real work examples, not a record of completed workplace projects. Each example separates my own work from decisions made by other teams or managers.
 
 | Operations example to substantiate | DA capability | Verifiable portfolio artifact | Personal contribution / stakeholder boundary to confirm |
 |---|---|---|---|
