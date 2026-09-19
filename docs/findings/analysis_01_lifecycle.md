@@ -21,7 +21,7 @@ Regional counts are summed and rates are recalculated from their components.
 
 ## 1. Regional DAU trend
 
-[chart]
+![Regional lifecycle](../../images/lifecycle_indexed_by_region.png)
 
 Each region follows the same broad lifecycle: early growth, decline, anniversary peaks, a 2025 content gap, partial recovery and the August outage. Global West shows larger swings, while JP is more stable.
 
@@ -29,7 +29,7 @@ The common direction supports one global lifecycle view, but the different ampli
 
 ## 2. Event lift and durability
 
-[chart + table]
+![Event lift and durability](../../images/event_lift_durability.png)
 
 ### Key findings
 
@@ -42,7 +42,7 @@ The event results show where traffic increased, but retention and monetization m
 
 ## 3. Planned-event dependence
 
-[chart + table]
+![Planned-event dependence](../../images/event_dependency.png)
 
 Planned events covered 17.5% of 2024 and 31.0% of 2025, while accounting for 33.3% and 54.5% of annual revenue respectively.
 
