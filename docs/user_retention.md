@@ -1,4 +1,4 @@
-# User-level exact-day retention: measurement before intervention
+# User-level exact-day retention
 
 **Question:** Can a monthly acquisition cohort's exact-day login return rate be measured reproducibly without counting sessions twice or including users who have not reached D30?
 
@@ -19,7 +19,7 @@ This is a separate, small synthetic instrumentation example. Its 360 users are *
 
 Use **calendar-day** differences, not elapsed 168/720-hour intervals. D30 users need not have logged in on D7. This differs from the original `retention_cohorts.csv`, whose nested checkpoint counts are an authored proxy, not standard exact-day session retention.
 
-[SQL](../sql/user_retention.sql) uses CTEs, a window function to select the earliest visible delivery, distinct user-days, horizon expansion, a left join and maturity-aware denominators. The independent [pandas implementation](../src/user_retention.py) uses timestamp normalization and user/date set membership. Every published count and rate must match. Source contracts reject orphan logins, conflicting redelivery, null fields, duplicate users and impossible chronology.
+[SQL](../sql/user_retention.sql) uses CTEs, a window function to select the earliest visible delivery, distinct user-days, horizon expansion, a left join and maturity-aware denominators. The independent [pandas implementation](../src/user_retention.py) uses timestamp normalization and user/date set membership. The SQL and pandas results must match. Validation checks reject orphan logins, conflicting duplicate events, null fields, duplicate users, and invalid timestamps.
 
 ## Evidence → hypothesis → decision
 
@@ -32,9 +32,8 @@ Use **calendar-day** differences, not elapsed 168/720-hour intervals. D30 users 
 ```bash
 python -m src.user_retention                         # read committed CSVs, assert parity/report
 python -m unittest tests.test_user_retention -v
-python -m src.user_retention --regenerate --refresh-docs  # intentional deterministic refresh
 ```
 
 The generator simulates activity on every observable day, repeated deliveries and multiple sessions. It does not merely create D7/D30 target rows. Manual edge fixtures cover leap-day dates, midnight boundaries, D30 returns without D7, late arrival, partial maturity and users registered after the snapshot.
 
-Limitations: no device/account identity resolution, deletion history, acquisition channel or payments; no reconciliation to aggregate DAU is appropriate for this separate population. Observed results may be restated as late logs arrive. A real release needs an ingestion-completeness watermark and an explicit restatement policy. Small synthetic cohorts are suitable for correctness checks, not power calculation or business forecasting.
+Limitations: no device/account identity resolution, deletion history, acquisition channel or payments; no reconciliation to aggregate DAU is appropriate for this separate population. Observed results may be restated as late logs arrive.
