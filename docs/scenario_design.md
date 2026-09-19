@@ -40,8 +40,6 @@ The project focuses on service-level behavior. Individual gacha pulls, purchase 
 
 ## Event timeline
 
-## Event timeline
-
 | Period | Fictional event | Intended analytical role |
 |---|---|---|
 | Jan 2024 | Global Launch | High acquisition and onboarding |
