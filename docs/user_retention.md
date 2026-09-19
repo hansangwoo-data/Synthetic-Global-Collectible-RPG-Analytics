@@ -2,7 +2,7 @@
 
 **Question:** Can a monthly acquisition cohort's exact-day login return rate be measured reproducibly without counting sessions twice or including users who have not reached D30?
 
-This is a separate, small synthetic instrumentation example. Its 360 users are **not** the users behind the original six aggregate tables. It cannot confirm the Astra, subscription, or outage hypotheses. No production records or individual purchase behavior are available.
+This is a separate, small synthetic instrumentation example. Its 360 users are **not** the users behind the original six scenario tables. It cannot confirm the Astra, subscription, or outage hypotheses. No production records or individual purchase behavior are available.
 
 ## Data contract and metric
 
@@ -17,13 +17,13 @@ This is a separate, small synthetic instrumentation example. Its 360 users are *
 | Snapshot | End of 2025-03-31 UTC; include both event time and ingestion time cutoffs |
 | Missing observation | Null rate when denominator is zero, never zero retention |
 
-Use **calendar-day** differences, not elapsed 168/720-hour intervals. D30 users need not have logged in on D7. This differs from the original `retention_cohorts.csv`, whose nested checkpoint counts are an authored proxy, not standard exact-day session retention.
+Use **calendar-day** differences, not elapsed 168/720-hour intervals. D30 users need not have logged in on D7. This differs from the original `retention_cohorts.csv`, where the original retention_cohorts.csv uses synthetic checkpoint counts rather than standard exact-day session retention, not standard exact-day session retention.
 
 [SQL](../sql/user_retention.sql) uses CTEs, a window function to select the earliest visible delivery, distinct user-days, horizon expansion, a left join and maturity-aware denominators. The independent [pandas implementation](../src/user_retention.py) uses timestamp normalization and user/date set membership. The SQL and pandas results must match. Validation checks reject orphan logins, conflicting duplicate events, null fields, duplicate users, and invalid timestamps.
 
 ## Evidence → hypothesis → decision
 
-[Generated results](user_retention_results.md) show observable exact-day return counts, with partial March maturity. These are outputs of an authored daily activity process, not estimates of actual player behavior. Apparent region differences can reflect small samples and registration-date mix; no region is declared better.
+[Generated results](user_retention_results.md) show observable exact-day return counts, with partial March maturity. These results come from a synthetic activity process, not real player behavior. Regional differences may reflect small sample sizes and registration-date mix.
 
 **Hypothesis for a real pilot:** a clearer first-week progression path might improve D7 login return. First collect complete login instrumentation and compare complete acquisition cohorts. Then randomize eligible new users within region and acquisition channel. Proposed success/guardrail rules appear in the [decision plan](decision_plan.md). Do not use this separate population to substantiate the aggregate scenario's campaign claims.
 
@@ -36,4 +36,4 @@ python -m unittest tests.test_user_retention -v
 
 The generator simulates activity on every observable day, repeated deliveries and multiple sessions. It does not merely create D7/D30 target rows. Manual edge fixtures cover leap-day dates, midnight boundaries, D30 returns without D7, late arrival, partial maturity and users registered after the snapshot.
 
-Limitations: no device/account identity resolution, deletion history, acquisition channel or payments; no reconciliation to aggregate DAU is appropriate for this separate population. Observed results may be restated as late logs arrive.
+Limitations: no device/account identity resolution, deletion history, acquisition channel or payments. This separate population is not intended to match the main scenario's DAU.
