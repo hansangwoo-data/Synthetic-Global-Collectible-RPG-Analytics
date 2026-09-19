@@ -14,6 +14,12 @@ The fixed seed in `src/generate_synthetic_data.py` reproduces:
 - daily product sales;
 - daily PvE boss funnels by region and difficulty.
 
+A separate synthetic registration/login dataset is used for the user-level exact-day D7/D30 example. It is generated independently and is not linked to the six main scenario tables.
+
+- daily PvE boss funnels by region and difficulty.
+
+A separate synthetic registration/login dataset is used for the user-level exact-day D7/D30 example. It is generated independently and is not linked to the six main scenario tables.
+
 Gacha pulls, user-level transactions, individual combat logs, real product
 names, real incidents, and proprietary schemas are intentionally excluded.
 
