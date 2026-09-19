@@ -57,10 +57,10 @@ June 15–28, 2025. February is a secondary historical reference. The baseline
 includes a content gap and recovery, so neither reference is an untreated control.
 Compare daily amounts because the windows contain 30, 31 and 14 days.
 
-The audit corrected service PU: it must lie between the maximum and sum of daily
-product purchasers. The old independent target violated this in 1,302 date-region
-rows. Sales and revenue are unchanged. PU is now a feasible synthetic union,
-not reconstructed player identities.
+During validation, I corrected service PU so that it stays between the maximum and sum of daily product purchasers. 
+The previous values violated this relationship in 1,302 date-region rows. Sales and revenue are unchanged. 
+PU is now a feasible synthetic union rather than reconstructed player identities. 
+See [validation changes](../validation_changes.md) for details.
 
 | Metric | Local baseline | Launch |
 |---|---:|---:|
