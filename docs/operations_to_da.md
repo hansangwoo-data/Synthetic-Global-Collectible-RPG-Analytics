@@ -2,14 +2,14 @@
 
 The table connects operations tasks with analytical skills demonstrated in this project. It is a guide for preparing real work examples, not a record of completed workplace projects. Each example separates my own work from decisions made by other teams or managers.
 
-| Operations example to substantiate | DA capability | Verifiable portfolio artifact | Personal contribution / stakeholder boundary to confirm |
+| Work example | What it demonstrates | Portfolio evidence | What I personally handled |
 |---|---|---|---|
-| QA or server cross-check found inconsistent logs | Question metric semantics; reconcile independent sources | [Payer-bound correction](audit_review.md), [contracts](../src/data_contracts.py) | Describe the comparison you ran and discrepancy you reported; distinguish who decided remediation |
-| Prioritized issues by affected users and monetization exposure | Define denominator and decision criteria | [Decision plan](decision_plan.md) | Document your triage recommendation; do not claim final priority ownership unless true |
-| Grouped repeated VOC/CS contacts | Normalize frequency by exposed users; avoid confusing contacts with unique users | Proposed extension only: current data has no VOC/CS records | Provide a permitted, redacted category definition and your aggregation; do not invent contact counts |
-| Escalated a payment-related incident | Separate revenue, payer count and revenue per payer | [Incident analysis](findings/analysis_05_incident.md) | Explain detection/escalation you performed versus decisions made by leads |
-| Checked a deployed fix | Define pre/post observation windows and regression guardrails | [Validation change log](validation_changes.md), tests | Identify your validation checklist, QA evidence and remaining uncertainty; deployment authority may belong to development |
-| Worked with planning, QA and development | Translate a question into instrumentation and acceptance criteria | [Exact-day metric specification](user_retention.md) | Name the deliverable you authored, reviewers and decisions they owned |
+| QA or server cross-check for inconsistent logs | Checking whether metrics and source data match correctly | Payer correction and validation checks [Payer-bound correction](audit_review.md), [contracts](../src/data_contracts.py) | DCompared the available logs, reported the discrepancy, and left the final remediation decision to the relevant team |
+| Prioritized issues by affected users and monetization exposure | Using user impact and revenue impact to decide what should be checked first | [Decision plan](decision_plan.md) | Recommended issue priority based on impact; final priority was decided by leads |
+| Grouped repeated VOC/CS contacts | Grouping repeated issues and separating contact volume from affected users | Proposed extension; current dataset has no VOC/CS records | Defined issue categories and summarized repeated contacts without inventing missing counts |
+| Escalated a payment-related incident | Separating revenue, payer count, and revenue per payer when reviewing an incident | [Incident analysis](findings/analysis_05_incident.md) | Detected and escalated the issue; final response decisions were made by leads |
+| Checked a deployed fix | Comparing before/after results and checking whether the issue returned | [Validation change log](validation_changes.md), tests | Checked the fix against logs and QA evidence; deployment authority belonged to development |
+| Worked with planning, QA and development | Turning an operational question into measurable checks | [Exact-day metric specification](user_retention.md) | Defined the checks and deliverable I owned, while separating reviewer and decision-maker roles |
 
 ## Before using an example in an application
 
