@@ -16,7 +16,7 @@ During the compensation period, returned users reached 293.95% of the pre-incide
 | DAU recovery target | 95 |
 | Paying-user recovery target | 90 |
 | Revenue recovery target | 90 |
-| D30 warning | more than -0.5 pp vs June reference |
+| D30 warning | below -0.5 pp vs June reference |
 
 A recovery index of 100 matches the pre-incident reference.
 
