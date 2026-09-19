@@ -35,7 +35,7 @@ Difficulty levels are analyzed separately and are not treated as a sequential us
 
 Astra falls below the participation threshold at every difficulty.
 
-By contrast, clear-rate and attempt differences remain close to the reference. This does not show a clear combat-performance problem among users who entered the boss.
+By contrast, clear-rate and attempt differences remain close to the reference. This does not indicate a clear combat-performance problem among users who entered the boss.
 
 The first areas to check are therefore event exposure, boss discovery, eligibility, progression readiness and reward communication.
 
