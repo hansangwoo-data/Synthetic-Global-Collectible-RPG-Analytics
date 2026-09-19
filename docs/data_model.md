@@ -3,7 +3,6 @@
 The six CSVs are synthetic analysis-ready facts/dimensions, not raw event logs.
 The SQLite schema mirrors them with explicit PK/FK/CHECK constraints. A complete
 rebuild loads validated CSVs into a fresh in-memory database, then builds views.
-No production incremental ETL, identity graph or warehouse deployment is claimed.
 
 | Table | Primary grain | Relationships | Additivity |
 |---|---|---|---|
@@ -34,6 +33,6 @@ payer union is feasible but not identified; see the sensitivity report. The supp
 
 ## Supplemental user cohort (separate population)
 
-Two minimum tables add user-level analysis without pretending to reconstruct the original six aggregate facts. `user_cohort_users` is one user (PK user_id), with UTC registration and registration region. `user_cohort_logins` is one event delivery, with event_id, user_id FK, occurrence UTC and receipt UTC. Event redelivery is allowed; conflicting event payloads are rejected. Python contracts validate before either SQLite or pandas reads the data.
+Two separate tables provide a small user-level retention example independent of the original six aggregate tables. `user_cohort_users` is one user (PK user_id), with UTC registration and registration region. `user_cohort_logins` is one event delivery, with event_id, user_id FK, occurrence UTC and receipt UTC. Event redelivery is allowed; conflicting event payloads are rejected. Python contracts validate before either SQLite or pandas reads the data.
 
 One user joins to many deliveries; reduce these to distinct user-days before joining exact-day targets. Output grain is registration month × region × horizon. Each horizon has a maturity-filtered denominator. Do not join these users to the original daily aggregates: populations and generation processes are independent. [Full metric contract and reproducibility](user_retention.md).
