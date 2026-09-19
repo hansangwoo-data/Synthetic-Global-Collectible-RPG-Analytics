@@ -15,7 +15,7 @@ This project reflects my transition from five years in Game Operations into data
 |---|---|
 | Astra collaboration cohort size +50.07%, D30 synthetic retention indicator −2.44 pp | Instrument acquisition mix and test onboarding before scaling acquisition. | <!-- claim:astra_crossover_2025_cohort_change_pct:50.07 claim:astra_crossover_2025_d30_change_pp:-2.44 -->
 | Astra collaboration normal boss participation index 82.17 (reference 100) | Test entry communication for eligible users. | <!-- claim:astra_normal_participation_index:82.17 -->
-| Subscription-window revenue +72.21%; adjacent-offer revenue per paying user per day −13.32% during the 14 days after launch | Test offer differentiation in all regions. | <!-- claim:subscription_revenue_change_pct:72.21 claim:adjacent_post14_change_pct:-13.32 -->
+| Subscription-window revenue +72.21%; adjacent-offer revenue per paying user per day −13.32% in the 14-day post-launch period | Test offer differentiation in all regions. | <!-- claim:subscription_revenue_change_pct:72.21 claim:adjacent_post14_change_pct:-13.32 -->
 | During the compensation period, returned users reached 293.95% of the pre-incident baseline, while revenue recovered to only 56.19%. | Separate technical restoration, user activity and commercial follow-up. | <!-- claim:compensation_returned_index:293.95 claim:compensation_revenue_index:56.19 -->
 
 **Next steps:** collect exposure, eligibility and payment logs, then test the proposed changes on a small scale. The [experiment plan](docs/decision_plan.md) sets out success measures and when to stop.
