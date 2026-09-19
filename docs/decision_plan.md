@@ -12,7 +12,7 @@ follow from the synthetic analysis; they have not been tested in a live service.
 | 2 | Revenue increased after the subscription launch, while adjacent-offer revenue per paying user declined | User-level purchases, subscription ownership, renewals and refunds | Test whether clearer differences between offers reduce spending shifts | 
 | 3 | User activity recovered faster than revenue after the incident | Which users were affected, whether they returned, and whether payment activity recovered | Track technical recovery, user activity and revenue separately |
 
-## One executable experiment proposal: boss-entry communication
+## Boss-entry communication test
 
 - Question: Does clearer reward and entry information increase first boss attempts among eligible users?
 - Users: Eligible users for the next comparable boss.
