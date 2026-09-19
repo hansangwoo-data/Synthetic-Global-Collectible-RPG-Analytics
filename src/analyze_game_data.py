@@ -28,12 +28,18 @@ def load_data(root: Path) -> tuple[pd.DataFrame, ...]:
     products = pd.read_csv(directory / "products.csv", parse_dates=["available_from"])
     sales = pd.read_csv(directory / "daily_product_sales.csv", parse_dates=["date"])
     bosses = pd.read_csv(directory / "boss_event_metrics.csv", parse_dates=["date"])
+    validate_data(daily, retention, events, products, sales, bosses)
     return daily, retention, events, products, sales, bosses
 
 
 def validate_data(daily: pd.DataFrame, retention: pd.DataFrame, events: pd.DataFrame,
                   products: pd.DataFrame, sales: pd.DataFrame,
                   bosses: pd.DataFrame) -> pd.DataFrame:
+    try:
+        from src.data_contracts import validate_contracts
+    except ModuleNotFoundError:
+        from data_contracts import validate_contracts
+    validate_contracts(daily, retention, events, products, sales, bosses)
     datasets = {
         "daily_kpis": (daily, ["date", "region"]),
         "retention_cohorts": (retention, ["cohort_month", "region"]),
@@ -90,7 +96,7 @@ def validate_data(daily: pd.DataFrame, retention: pd.DataFrame, events: pd.DataF
         on="product_id", validate="many_to_one"
     )
     expected_revenue = sales_with_price["units_sold"] * sales_with_price["price_usd"]
-    if not np.allclose(sales_with_price["gross_revenue_usd"], expected_revenue, atol=.01):
+    if not np.allclose(sales_with_price["gross_revenue_usd"], expected_revenue, atol=.005, rtol=0):
         raise ValueError("sales revenue does not equal units sold times list price")
     limited_types = {"seasonal_pass", "limited"}
     invalid_limited_sales = sales_with_price[
@@ -107,7 +113,7 @@ def validate_data(daily: pd.DataFrame, retention: pd.DataFrame, events: pd.DataF
 
     sales_total = sales.groupby(["date", "region"])["gross_revenue_usd"].sum()
     daily_total = daily.set_index(["date", "region"])["revenue"]
-    if not np.allclose(sales_total.sort_index(), daily_total.sort_index(), atol=.01):
+    if not np.allclose(sales_total.sort_index(), daily_total.sort_index(), atol=.005, rtol=0):
         raise ValueError("daily revenue does not reconcile with product sales")
     return report
 
@@ -236,7 +242,7 @@ def event_window_summary(daily: pd.DataFrame, events: pd.DataFrame,
 def product_summary(sales: pd.DataFrame, products: pd.DataFrame) -> pd.DataFrame:
     merged = sales.merge(products, on="product_id", validate="many_to_one")
     return (merged.groupby(["product_id", "product_name", "product_type"], as_index=False)
-            .agg(purchasers=("purchasers", "sum"), units_sold=("units_sold", "sum"),
+            .agg(purchaser_days=("purchasers", "sum"), units_sold=("units_sold", "sum"),
                  gross_revenue_usd=("gross_revenue_usd", "sum"))
             .sort_values("gross_revenue_usd", ascending=False))
 

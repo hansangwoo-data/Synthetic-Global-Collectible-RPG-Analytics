@@ -243,6 +243,7 @@ def generate_product_sales(rng: np.random.Generator, activity: pd.DataFrame
         unique_payers = 0 if row["dau"] == 0 else max(1, int(row["dau"] * conversion))
         event_types = {e.event_type for e in events}
         revenue = 0.0
+        daily_purchasers = []
         for product in product_frame().to_dict("records"):
             if date < pd.Timestamp(product["available_from"]):
                 continue
@@ -278,12 +279,19 @@ def generate_product_sales(rng: np.random.Generator, activity: pd.DataFrame
             ))) if purchasers else 0
             gross = round(units * product["price_usd"], 2)
             revenue += gross
+            daily_purchasers.append(purchasers)
             sales_rows.append({
                 "date": date, "region": region, "product_id": product["product_id"],
                 "purchasers": purchasers, "units_sold": units,
                 "gross_revenue_usd": gross,
             })
-        enriched.at[idx, "pu"] = unique_payers
+        # Aggregate-only construction: choose a feasible union size. The old
+        # independent payer target could exceed ALL product purchasers combined.
+        # This implies overlap when the target is below the purchaser sum; it
+        # does not reconstruct player identities or cross-product journeys.
+        feasible_payers = max(max(daily_purchasers, default=0),
+                              min(unique_payers, sum(daily_purchasers)))
+        enriched.at[idx, "pu"] = feasible_payers
         enriched.at[idx, "revenue"] = round(revenue, 2)
     return enriched, pd.DataFrame(sales_rows)
 
@@ -374,6 +382,11 @@ def validate_generated_data(daily: pd.DataFrame, retention: pd.DataFrame,
         raise ValueError("boss metrics contains duplicate grain keys")
     if (bosses["clears"] > bosses["participants"]).any():
         raise ValueError("boss clears cannot exceed participants")
+    try:
+        from src.data_contracts import validate_contracts
+    except ModuleNotFoundError:
+        from data_contracts import validate_contracts
+    validate_contracts(daily, retention, events, products, sales, bosses)
 
 
 def main() -> None:

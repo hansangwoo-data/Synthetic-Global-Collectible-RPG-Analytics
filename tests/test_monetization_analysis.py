@@ -114,12 +114,12 @@ class MonetizationAnalysisTests(unittest.TestCase):
             global_result["adjacent_post_14_revenue_per_payer_day_change_pct"],
         )
 
-    def test_regional_launch_warning_is_specific_to_jp(self) -> None:
+    def test_corrected_payers_show_shared_regional_launch_warning(self) -> None:
         regional = self.evaluation[~self.evaluation["scope"].eq("ALL")].set_index("scope")
         warning_regions = set(
             regional.index[regional["launch_adjacent_reallocation_warning"]]
         )
-        self.assertEqual(warning_regions, {"JP"})
+        self.assertEqual(warning_regions, {"KR", "JP", "GLOBAL_WEST"})
         self.assertTrue(regional["post_14_adjacent_reallocation_warning"].all())
 
     def test_retention_guardrail_does_not_fail(self) -> None:
