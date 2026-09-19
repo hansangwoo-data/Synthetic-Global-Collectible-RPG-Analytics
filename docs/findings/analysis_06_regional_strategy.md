@@ -36,7 +36,7 @@ These shared patterns support common measurement and testing across regions befo
 
 **JP:** Monitor offer differentiation and retention. JP has the strongest Fantasy-context D30 improvement, but still shows the same Astra entry and adjacent-offer warnings.
 
-**Global West:** Global West shows the strongest subscription revenue growth but also the largest adjacent-offer decline and post-incident D30 gap.
+**Global West**: Review acquisition quality and offer mix before scaling further. It has the strongest subscription revenue growth, but also the largest adjacent-offer decline and post-incident D30 gap.
 
 ## Next step
 
