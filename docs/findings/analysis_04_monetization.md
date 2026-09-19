@@ -21,8 +21,8 @@ Compare daily amounts because the windows contain 30, 31 and 14 days.
 
 The audit corrected service PU: it must lie between the maximum and sum of daily
 product purchasers. The old independent target violated this in 1,302 date-region
-rows. Sales and revenue are unchanged. PU is now a feasible synthetic union,
-not reconstructed player identities.
+rows. Sales and revenue are unchanged. PU is now a feasible synthetic union rather than 
+reconstructed player identities. See [validation changes](../validation_changes.md) for details.
 
 | Metric | Local baseline | Launch |
 |---|---:|---:|
