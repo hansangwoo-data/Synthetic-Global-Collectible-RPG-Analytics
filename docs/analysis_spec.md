@@ -72,7 +72,7 @@ When event windows overlap, the result is treated as contextual rather than attr
 | DAU index | 95 |
 | Paying-user index | 90 |
 | Revenue index | 90 |
-| D30 | within -0.5 pp of pre-incident reference |
+| D30 | ≥ -0.5 pp vs pre-incident reference |
 
 ### PvE participation
 
