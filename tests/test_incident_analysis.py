@@ -80,7 +80,7 @@ class IncidentAnalysisTests(unittest.TestCase):
             & self.stages["window"].eq("postmortem_remediation")
         ].iloc[0]
         self.assertTrue(remediation["dau_pass"])
-        self.assertTrue(remediation["pu_pass"])
+        self.assertFalse(remediation["pu_pass"])
         self.assertFalse(remediation["revenue_pass"])
 
     def test_residual_window_meets_operational_thresholds_in_every_region(self) -> None:

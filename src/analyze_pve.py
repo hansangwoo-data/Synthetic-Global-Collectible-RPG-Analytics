@@ -181,7 +181,7 @@ def event_pve_alignment(boss_summary: pd.DataFrame,
         participation_ok = (
             boss["participation_benchmark_index"] >= PARTICIPATION_INDEX_THRESHOLD
         )
-        quality_good = cohort["d30_retention_change_pp"] >= 1.0
+        quality_good = cohort["d30_retention_change_pp"] >= cohort["d30_effective_threshold_pp"]
         quality_failed = cohort["d30_retention_change_pp"] <= -1.0
         if participation_ok and quality_good:
             result = "Entry and retention aligned"

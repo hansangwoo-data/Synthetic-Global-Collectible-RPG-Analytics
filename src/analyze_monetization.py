@@ -10,6 +10,11 @@ import pandas as pd
 import seaborn as sns
 
 try:
+    from src.data_contracts import require_window
+except ModuleNotFoundError:
+    from data_contracts import require_window
+
+try:
     from src.analyze_game_data import load_data, project_root
 except ModuleNotFoundError:  # Support `python src/analyze_monetization.py`.
     from analyze_game_data import load_data, project_root
@@ -37,9 +42,11 @@ def prepare_sales(sales: pd.DataFrame, products: pd.DataFrame) -> pd.DataFrame:
     result["date"] = pd.to_datetime(result["date"])
     products = products.copy()
     products["available_from"] = pd.to_datetime(products["available_from"])
-    result = result.merge(products, on="product_id", validate="many_to_one")
+    result = result.merge(products, on="product_id", how="left", validate="many_to_one")
+    if result["price_usd"].isna().any():
+        raise ValueError("sales contains unknown product_id")
     expected = result["units_sold"] * result["price_usd"]
-    if not np.allclose(result["gross_revenue_usd"], expected, atol=.01):
+    if not np.allclose(result["gross_revenue_usd"], expected, atol=.005, rtol=0):
         raise ValueError("product revenue failed list-price reconciliation")
     return result
 
@@ -54,6 +61,7 @@ def monetization_window_summary(daily: pd.DataFrame,
     for scope, regions in scopes:
         for window, (start_text, end_text) in WINDOWS.items():
             start, end = pd.Timestamp(start_text), pd.Timestamp(end_text)
+            require_window(daily, "date", start, end, regions, "monetization window")
             daily_window = daily[
                 daily["region"].isin(regions) & daily["date"].between(start, end)
             ]
@@ -395,7 +403,10 @@ def save_monetization_charts(windows: pd.DataFrame,
         title="Adjacent revenue per service payer-day",
         xlabel="", ylabel="Change from local baseline (%)",
         xticks=x, xticklabels=["Launch window", "Post-launch days 1–14"],
-        ylim=(-12, 2),
+        ylim=(min(-12, regional[[
+            "adjacent_launch_revenue_per_payer_day_change_pct",
+            "adjacent_post_14_revenue_per_payer_day_change_pct",
+        ]].min().min() - 4), 2),
     )
     axes[1].legend(title="Region", frameon=False, ncol=3, loc="lower left")
 

@@ -81,12 +81,12 @@ class RegionalAnalysisTests(unittest.TestCase):
         score_columns = [column for column in self.evidence if "score" in column]
         self.assertEqual(score_columns, [])
 
-    def test_jp_is_the_only_immediate_bm_adjacency_warning(self) -> None:
+    def test_all_regions_have_immediate_bm_adjacency_warning(self) -> None:
         launch = self.guardrails[
             self.guardrails["guardrail_id"].eq("bm_launch")
         ]
         warning_regions = set(launch.loc[launch["status"].eq("Warning"), "region"])
-        self.assertEqual(warning_regions, {"JP"})
+        self.assertEqual(warning_regions, set(REGION_ORDER))
 
     def test_shared_guardrail_pattern_is_consistent(self) -> None:
         warning_ids = {

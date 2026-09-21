@@ -7,12 +7,14 @@ or modeled from a specific company's production data.
 The fixed seed in `src/generate_synthetic_data.py` reproduces:
 
 - regional daily KPIs for KR, JP, and Global West;
-- mature monthly survival-style retention cohorts through November 2025;
+- mature monthly custom nested-checkpoint retention cohorts through November 2025;
 - a fictional event and incident calendar;
 - a product dimension with standard premium-currency top-ups but without direct
   limited-character sales;
 - daily product sales;
 - daily PvE boss funnels by region and difficulty.
+
+A separate synthetic registration/login dataset is used for the user-level exact-day D7/D30 example. It is generated independently and is not linked to the six main scenario tables.
 
 Gacha pulls, user-level transactions, individual combat logs, real product
 names, real incidents, and proprietary schemas are intentionally excluded.

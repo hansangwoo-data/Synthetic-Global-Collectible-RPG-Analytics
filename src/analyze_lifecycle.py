@@ -111,6 +111,8 @@ def _has_material_dau_lift(row: dict[str, object]) -> bool:
 
 
 def _evaluate_immediate(row: dict[str, object]) -> str:
+    if row.get("baseline_incomplete", False):
+        return "Not evaluable: no complete baseline"
     event_type = str(row["event_type"])
     thresholds = _thresholds(event_type)
     if not thresholds:
