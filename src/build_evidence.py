@@ -124,65 +124,90 @@ Analysis 5 looks at how activity and revenue recovered after the service inciden
     stage=iw[iw.scope.eq('ALL')].copy();stage['revenue_per_payer_day_index']=stage['revenue_per_payer_day_recovery_index']
     ir_display=ir[ir.scope.eq('ALL')].copy()
     ir_display['d30_retention_pct']=ir_display.d30_retention*100
-    doc5=header+f'''# Analysis 5: Incident and Recovery
+    stage_idx = stage.set_index('window')
+    final_idx = final.set_index('scope')
+    ir_idx = ir_display.set_index('period')
 
-## Decision
+    doc5=f'''# Analysis 5: Incident and Recovery
 
-**Mixed: operational indices meet scenario thresholds; a new-cohort checkpoint gap remains.** The final September
-21–30 window meets DAU ≥95, PU ≥90 and revenue ≥90 in every region.
-Pooled October–November D30 is {final.set_index('scope').loc['ALL','d30_change_pp']:.2f} pp below June.
-These are descriptive differences across cohorts, not an outage treatment effect.
+> This analysis uses synthetic scenario data. Recovery indices compare each recovery stage with the pre-incident reference.
 
-## Stages and denominators
+## Summary
 
-The operational reference is July 31–August 11 (12 days). June is the latest
-complete monthly D30 reference before the incident. July overlaps the Astra
-acquisition context and its follow-up crosses the outage; October includes an
-autumn event. November provides a separate post-recovery check.
+User activity recovered faster than commercial metrics after the outage.
+
+During the compensation period, returned users reached {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:.2f}% of the pre-incident baseline, while revenue recovered to {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:.2f}%. By late September, DAU, paying users and revenue had returned close to their reference levels, but later D30 retention remained below the pre-incident cohort.
+
+## Method
+
+| Rule | Definition |
+|---|---|
+| Pre-incident reference | 2025-07-31 to 2025-08-11 |
+| DAU recovery target | 95 |
+| Paying-user recovery target | 90 |
+| Revenue recovery target | 90 |
+| D30 warning | below -0.5 pp vs June reference |
+
+A recovery index of 100 matches the pre-incident reference.
+
+## 1. Daily recovery
 
 ![Daily recovery](../../images/incident_daily_recovery_by_region.png)
 
-{table(stage,['window_label','service_availability','dau_recovery_index','pu_recovery_index','revenue_recovery_index','returned_users_recovery_index','revenue_per_payer_day_index'])}
+| Stage | DAU index | Paying-user index | Revenue index | Returned-user index |
+|---|---:|---:|---:|---:|
+| Pre-incident baseline | {stage_idx.loc['pre_incident_baseline','dau_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','pu_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','revenue_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','returned_users_recovery_index']:.2f} |
+| Full outage | {stage_idx.loc['full_outage','dau_recovery_index']:.2f} | {stage_idx.loc['full_outage','pu_recovery_index']:.2f} | {stage_idx.loc['full_outage','revenue_recovery_index']:.2f} | {stage_idx.loc['full_outage','returned_users_recovery_index']:.2f} |
+| Partial restoration | {stage_idx.loc['partial_restoration','dau_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','pu_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','revenue_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','returned_users_recovery_index']:.2f} |
+| Delayed response | {stage_idx.loc['delayed_response','dau_recovery_index']:.2f} | {stage_idx.loc['delayed_response','pu_recovery_index']:.2f} | {stage_idx.loc['delayed_response','revenue_recovery_index']:.2f} | {stage_idx.loc['delayed_response','returned_users_recovery_index']:.2f} |
+| Compensation | {stage_idx.loc['extraordinary_compensation','dau_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','pu_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:.2f} |
+| Remediation | {stage_idx.loc['postmortem_remediation','dau_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','pu_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','revenue_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','returned_users_recovery_index']:.2f} |
+| Late September | {stage_idx.loc['residual_post_recovery','dau_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','pu_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','revenue_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','returned_users_recovery_index']:.2f} |
 
-Index 100 means the reference value. Outage division by zero is undefined,
-not zero conversion or ARPPU. Outflow is unobservable during the full shutdown.
-Returned-user totals count daily reactivation, not unique compensation claimants.
+Activity recovered first. Compensation produced a large return spike, but payment and revenue recovery remained much lower during the same period.
 
 ![Commercial recovery](../../images/incident_reactivation_commercial_bridge.png)
 
-Compensation returns reach 293.95% of baseline but revenue reaches 56.19%.
-**After correcting impossible service PU, payers no longer recover ahead of
-revenue in the remediation stage.** Both remain below their operational targets.
-Activity indices return toward reference first; commercial indices are assessed separately. This does not measure individual recovery.
+This shows why technical recovery, user return and commercial recovery should be tracked separately.
 
-## Regional exit checks
+## 2. Regional recovery
+
+The regional results below use the late-September recovery stage, with D30 compared against the June reference cohort.
 
 ![Regional exits](../../images/incident_regional_exit_guardrails.png)
 
-{table(final,['scope','dau_recovery_index','pu_recovery_index','revenue_recovery_index','user_outflow_recovery_index','d30_change_pp','final_outcome'])}
+| Region | DAU index | Paying-user index | Revenue index | D30 change |
+|---|---:|---:|---:|---:|
+| KR | {final_idx.loc['KR','dau_recovery_index']:.2f} | {final_idx.loc['KR','pu_recovery_index']:.2f} | {final_idx.loc['KR','revenue_recovery_index']:.2f} | {final_idx.loc['KR','d30_change_pp']:.2f} pp |
+| JP | {final_idx.loc['JP','dau_recovery_index']:.2f} | {final_idx.loc['JP','pu_recovery_index']:.2f} | {final_idx.loc['JP','revenue_recovery_index']:.2f} | {final_idx.loc['JP','d30_change_pp']:.2f} pp |
+| Global West | {final_idx.loc['GLOBAL_WEST','dau_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','pu_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','revenue_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','d30_change_pp']:.2f} pp |
 
-Outflow is a secondary synthetic proxy, not a measured count of permanently lost
-users. It is not a pass/fail condition. Global West has the largest D30 gap;
-that does not imply the weakest technical restoration.
+All three regions recovered the daily operational metrics by late September.
 
-## Mature cohorts
+However, D30 retention remained below the June reference in every region, with the largest gap in Global West.
+
+## 3. Post-incident D30
 
 ![Mature cohorts](../../images/incident_d30_recovery_by_region.png)
 
-{table(ir_display,['period_label','cohort_size','d30_retention_pct','d30_change_pp','d30_guardrail_failed'])}
+| Cohort | D30 retention | Change vs June |
+|---|---:|---:|
+| June reference | {ir_idx.loc['june_reference','d30_retention_pct']:.2f}% | {ir_idx.loc['june_reference','d30_change_pp']:.2f} pp |
+| July | {ir_idx.loc['july_overlap','d30_retention_pct']:.2f}% | {ir_idx.loc['july_overlap','d30_change_pp']:.2f} pp |
+| August | {ir_idx.loc['august_incident','d30_retention_pct']:.2f}% | {ir_idx.loc['august_incident','d30_change_pp']:.2f} pp |
+| September | {ir_idx.loc['september_remediation','d30_retention_pct']:.2f}% | {ir_idx.loc['september_remediation','d30_change_pp']:.2f} pp |
+| October | {ir_idx.loc['october_residual','d30_retention_pct']:.2f}% | {ir_idx.loc['october_residual','d30_change_pp']:.2f} pp |
+| November | {ir_idx.loc['november_residual','d30_retention_pct']:.2f}% | {ir_idx.loc['november_residual','d30_change_pp']:.2f} pp |
 
-Retention rates above are percentages; changes are percentage points. October and
-November each fail the -0.5 pp rule in every region. These are **new acquisition
-cohorts**, not the same pre-outage players: they cannot measure recovery of an
-incident-exposed cohort or restored trust. Connect exposure, communication,
-compensation claim, return and purchase at player level before testing mechanisms.
+Later cohorts improved from the August low, but October and November still remained below the June reference.
 
-## Action
+These are new acquisition cohorts, so they do not show whether the same incident-affected users fully recovered.
 
-Exit the daily response phase only after the complete September window meets
-all three targets. Continue acquisition-cohort monitoring separately. Establish
-an exposed-player cohort for future incidents and a non-exposed comparison only
-if its identification assumptions are credible. [Decision plan](../decision_plan.md).
+## Next step
+
+Close the daily incident response only after activity, payer and revenue targets recover. Continue retention monitoring separately.
+
+For future incidents, connect outage exposure, compensation, return and payment activity at the user level.
 '''
     doc6=header+'''# Analysis 6: Regional Decisions
 
