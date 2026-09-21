@@ -155,12 +155,12 @@ A recovery index of 100 matches the pre-incident reference.
 | Stage | DAU index | Paying-user index | Revenue index | Returned-user index |
 |---|---:|---:|---:|---:|
 | Pre-incident baseline | {stage_idx.loc['pre_incident_baseline','dau_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','pu_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','revenue_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','returned_users_recovery_index']:+.2f} |
-| Full outage | {stage_idx.loc['full_outage','dau_recovery_index']:+.2f} | {stage_idx.loc['full_outage','pu_recovery_index']:+.2f} | {stage_idx.loc['full_outage','revenue_recovery_index']:+.2f} | {stage_idx.loc['full_outage','returned_users_recovery_index']:+.2f} |
-| Partial restoration | {stage_idx.loc['partial_restoration','dau_recovery_index']:+.2f} | {stage_idx.loc['partial_restoration','pu_recovery_index']:+.2f} | {stage_idx.loc['partial_restoration','revenue_recovery_index']:+.2f} | {stage_idx.loc['partial_restoration','returned_users_recovery_index']:+.2f} |
-| Delayed response | {stage_idx.loc['delayed_response','dau_recovery_index']:+.2f} | {stage_idx.loc['delayed_response','pu_recovery_index']:+.2f} | {stage_idx.loc['delayed_response','revenue_recovery_index']:+.2f} | {stage_idx.loc['delayed_response','returned_users_recovery_index']:+.2f} |
-| Compensation | {stage_idx.loc['extraordinary_compensation','dau_recovery_index']:+.2f} | {stage_idx.loc['extraordinary_compensation','pu_recovery_index']:+.2f} | {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:+.2f} | {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:+.2f} |
-| Remediation | {stage_idx.loc['postmortem_remediation','dau_recovery_index']:+.2f} | {stage_idx.loc['postmortem_remediation','pu_recovery_index']:+.2f} | {stage_idx.loc['postmortem_remediation','revenue_recovery_index']:+.2f} | {stage_idx.loc['postmortem_remediation','returned_users_recovery_index']:+.2f} |
-| Late September | {stage_idx.loc['residual_post_recovery','dau_recovery_index']:+.2f} | {stage_idx.loc['residual_post_recovery','pu_recovery_index']:+.2f} | {stage_idx.loc['residual_post_recovery','revenue_recovery_index']:+.2f} | {stage_idx.loc['residual_post_recovery','returned_users_recovery_index']:+.2f} |
+| Full outage | {stage_idx.loc['full_outage','dau_recovery_index']:.2f} | {stage_idx.loc['full_outage','pu_recovery_index']:.2f} | {stage_idx.loc['full_outage','revenue_recovery_index']:.2f} | {stage_idx.loc['full_outage','returned_users_recovery_index']:.2f} |
+| Partial restoration | {stage_idx.loc['partial_restoration','dau_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','pu_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','revenue_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','returned_users_recovery_index']:+.2f} |
+| Delayed response | {stage_idx.loc['delayed_response','dau_recovery_index']:.2f} | {stage_idx.loc['delayed_response','pu_recovery_index']:.2f} | {stage_idx.loc['delayed_response','revenue_recovery_index']:.2f} | {stage_idx.loc['delayed_response','returned_users_recovery_index']:+.2f} |
+| Compensation | {stage_idx.loc['extraordinary_compensation','dau_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','pu_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:+.2f} |
+| Remediation | {stage_idx.loc['postmortem_remediation','dau_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','pu_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','revenue_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','returned_users_recovery_index']:+.2f} |
+| Late September | {stage_idx.loc['residual_post_recovery','dau_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','pu_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','revenue_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','returned_users_recovery_index']:+.2f} |
 
 Activity recovered first. Compensation produced a large return spike, but payment and revenue recovery remained much lower during the same period.
 
@@ -176,9 +176,9 @@ The regional results below use the late-September recovery stage, with D30 compa
 
 | Region | DAU index | Paying-user index | Revenue index | D30 change |
 |---|---:|---:|---:|---:|
-| KR | {final_idx.loc['KR','dau_recovery_index']:.2f} | {final_idx.loc['KR','pu_recovery_index']:.2f} | {final_idx.loc['KR','revenue_recovery_index']:.2f} | {final_idx.loc['KR','d30_change_pp']:+.2f} pp |
-| JP | {final_idx.loc['JP','dau_recovery_index']:.2f} | {final_idx.loc['JP','pu_recovery_index']:.2f} | {final_idx.loc['JP','revenue_recovery_index']:.2f} | {final_idx.loc['JP','d30_change_pp']:+.2f} pp |
-| Global West | {final_idx.loc['GLOBAL_WEST','dau_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','pu_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','revenue_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','d30_change_pp']:+.2f} pp |
+| KR | {final_idx.loc['KR','dau_recovery_index']:.2f} | {final_idx.loc['KR','pu_recovery_index']:.2f} | {final_idx.loc['KR','revenue_recovery_index']:.2f} | {final_idx.loc['KR','d30_change_pp']:.2f} pp |
+| JP | {final_idx.loc['JP','dau_recovery_index']:.2f} | {final_idx.loc['JP','pu_recovery_index']:.2f} | {final_idx.loc['JP','revenue_recovery_index']:.2f} | {final_idx.loc['JP','d30_change_pp']:.2f} pp |
+| Global West | {final_idx.loc['GLOBAL_WEST','dau_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','pu_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','revenue_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','d30_change_pp']:.2f} pp |
 
 All three regions recovered the daily operational metrics by late September.
 
@@ -190,12 +190,12 @@ However, D30 retention remained below the June reference in every region, with t
 
 | Cohort | D30 retention | Change vs June |
 |---|---:|---:|
-| June reference | {ir_idx.loc['june_reference','d30_retention_pct']:+.2f}% | {ir_idx.loc['june_reference','d30_change_pp']:+.2f} pp |
-| July | {ir_idx.loc['july_overlap','d30_retention_pct']:+.2f}% | {ir_idx.loc['july_overlap','d30_change_pp']:+.2f} pp |
-| August | {ir_idx.loc['august_incident','d30_retention_pct']:+.2f}% | {ir_idx.loc['august_incident','d30_change_pp']:+.2f} pp |
-| September | {ir_idx.loc['september_remediation','d30_retention_pct']:+.2f}% | {ir_idx.loc['september_remediation','d30_change_pp']:+.2f} pp |
-| October | {ir_idx.loc['october_residual','d30_retention_pct']:+.2f}% | {ir_idx.loc['october_residual','d30_change_pp']:+.2f} pp |
-| November | {ir_idx.loc['november_residual','d30_retention_pct']:+.2f}% | {ir_idx.loc['november_residual','d30_change_pp']:+.2f} pp |
+| June reference | {ir_idx.loc['june_reference','d30_retention_pct']:.2f}% | {ir_idx.loc['june_reference','d30_change_pp']:.2f} pp |
+| July | {ir_idx.loc['july_overlap','d30_retention_pct']:.2f}% | {ir_idx.loc['july_overlap','d30_change_pp']:.2f} pp |
+| August | {ir_idx.loc['august_incident','d30_retention_pct']:.2f}% | {ir_idx.loc['august_incident','d30_change_pp']:.2f} pp |
+| September | {ir_idx.loc['september_remediation','d30_retention_pct']:.2f}% | {ir_idx.loc['september_remediation','d30_change_pp']:.2f} pp |
+| October | {ir_idx.loc['october_residual','d30_retention_pct']:.2f}% | {ir_idx.loc['october_residual','d30_change_pp']:.2f} pp |
+| November | {ir_idx.loc['november_residual','d30_retention_pct']:.2f}% | {ir_idx.loc['november_residual','d30_change_pp']:.2f} pp |
 
 Later cohorts improved from the August low, but October and November still remained below the June reference.
 
