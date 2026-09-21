@@ -257,6 +257,110 @@ Use the same core measurements across all three regions, then adjust experiments
 
 See the [decision plan](../decision_plan.md) for the proposed tests.
 '''
+    payer_display = payer.copy()
+
+    payer_scope_order = ['ALL', 'KR', 'JP', 'GLOBAL_WEST']
+    payer_assumption_order = [
+        'published_feasible_union',
+        'maximum_overlap',
+        'no_overlap_capped_at_dau',
+    ]
+
+    payer_display['scope'] = pd.Categorical(
+        payer_display['scope'],
+        categories=payer_scope_order,
+        ordered=True,
+    )
+    payer_display['payer_assumption'] = pd.Categorical(
+        payer_display['payer_assumption'],
+        categories=payer_assumption_order,
+        ordered=True,
+    )
+    payer_display = payer_display.sort_values(
+        ['payer_assumption', 'scope']
+    ).copy()
+
+    payer_display['scope'] = payer_display['scope'].astype(str).replace({
+        'GLOBAL_WEST': 'Global West',
+    })
+    payer_display['payer_assumption'] = (
+        payer_display['payer_assumption'].astype(str).replace({
+            'published_feasible_union': 'Published',
+            'maximum_overlap': 'Maximum overlap',
+            'no_overlap_capped_at_dau': 'No overlap',
+        })
+    )
+
+    baseline_pivot = base.pivot_table(
+        index=['context', 'baseline_days', 'overlaps'],
+        columns='metric',
+        values='change_pct',
+        aggfunc='first',
+    ).reset_index()
+
+    context_order = ['subscription', 'compensation']
+    baseline_pivot['context'] = pd.Categorical(
+        baseline_pivot['context'],
+        categories=context_order,
+        ordered=True,
+    )
+    baseline_pivot = baseline_pivot.sort_values(
+        ['context', 'baseline_days']
+    ).copy()
+
+    baseline_pivot['Context'] = (
+        baseline_pivot['context'].astype(str).str.capitalize()
+    )
+    baseline_pivot['Baseline'] = (
+        baseline_pivot['baseline_days'].astype(int).astype(str) + ' days'
+    )
+    baseline_pivot['Overlap'] = baseline_pivot['overlaps'].fillna('None')
+
+    docsen='''# Sensitivity Checks
+
+## 1. Payer assumptions
+
+Daily service PU is not based on individual buyer identities, so the exact overlap between product purchasers is unknown.
+
+To check whether the main monetization finding depends on that assumption, I compared three valid payer-count scenarios:
+
+- Published assumption
+- Maximum buyer overlap
+- No overlap, capped at DAU
+
+| Scope | Payer assumption | PU change | Adjacent launch change | Adjacent post-launch change |
+|---|---|---:|---:|---:|
+''' + '\n'.join(
+        f"| {row.scope} | {row.payer_assumption} | "
+        f"{row.launch_pu_per_day_change_pct:+.2f}% | "
+        f"{row.adjacent_launch_revenue_per_payer_day_change_pct:+.2f}% | "
+        f"{row.adjacent_post_14_revenue_per_payer_day_change_pct:+.2f}% |"
+        for row in payer_display.itertuples()
+    ) + '''
+
+The exact size changes, but the direction is stable: paying users increase while adjacent-offer revenue per payer declines.
+
+## 2. Baseline length
+
+I also compared 7-, 14- and 28-day baselines for the subscription and compensation periods.
+
+| Context | Baseline | Overlap | DAU | PU | Revenue | Returned users |
+|---|---:|---|---:|---:|---:|---:|
+''' + '\n'.join(
+        f"| {row.Context} | {row.Baseline} | {row.Overlap} | "
+        f"{row.dau:+.2f}% | {row.pu:+.2f}% | "
+        f"{row.revenue:+.2f}% | {row.returned_users:+.2f}% |"
+        for row in baseline_pivot.itertuples()
+    ) + '''
+
+Baseline choice changes the size of the result, especially when longer windows include another event. The overall direction remains the same.
+
+## Takeaway
+
+These checks do not prove causal effects. They show that the main conclusions are not dependent on one payer assumption or one baseline length.
+
+For a real service, user-level purchase, exposure and assignment data would be needed for stronger conclusions.
+'''
     claims=[]
     def add(name,value):claims.append({'metric':name,'value':float(value)})
     life=lifecycle_event_performance(d,e);ann=life[life.event_name.eq('First Anniversary')].iloc[0]
