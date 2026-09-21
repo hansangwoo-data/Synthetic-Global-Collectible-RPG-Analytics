@@ -3,13 +3,13 @@ import argparse
 from pathlib import Path
 from src.analyze_game_data import load_data,project_root
 from src.analyze_monetization import (prepare_sales,monetization_window_summary,bm_evaluation_summary,
-    adjacent_product_summary,revenue_decomposition)
+    adjacent_product_summary)
 from src.analyze_incident import (incident_window_summary,incident_stage_evaluation,incident_retention_summary,
     incident_final_evaluation)
 from src.analyze_lifecycle import event_dependency_summary,lifecycle_event_performance
 from src.analyze_retention import retention_monthly_summary,regional_quality_summary,acquisition_quality_comparison
 from src.analyze_pve import prepare_boss_funnel,boss_regional_summary,boss_performance_summary
-from src.analyze_regional import regional_evidence_summary,regional_guardrail_matrix,regional_action_plan
+from src.analyze_regional import regional_evidence_summary
 from src.analyze_sensitivity import sensitivity_tables
 import pandas as pd
 
@@ -27,14 +27,13 @@ def table(frame,columns=None):
 def render():
     d,r,e,p,s,b=load_data(project_root());sales=prepare_sales(s,p)
     w=monetization_window_summary(d,sales);bm=bm_evaluation_summary(w,r)
-    adj=adjacent_product_summary(d,sales);dec=revenue_decomposition(w)
+    adj=adjacent_product_summary(d,sales);
     iw=incident_window_summary(d);st=incident_stage_evaluation(iw)
     ir=incident_retention_summary(r);final=incident_final_evaluation(st,ir)
     monthly=retention_monthly_summary(r,e);acq=acquisition_quality_comparison(r,monthly)
     boss=boss_performance_summary(prepare_boss_funnel(b,d))
     collab=pd.concat([regional_quality_summary(monthly,k) for k in ['fantasy_crossover_2024','astra_crossover_2025']])
     ev=regional_evidence_summary(event_dependency_summary(d),collab,boss_regional_summary(prepare_boss_funnel(b,d)),bm,final)
-    guard=regional_guardrail_matrix(ev);actions=regional_action_plan(ev)
     payer,base=sensitivity_tables()
     bg=bm.set_index('scope').loc['ALL'];wg=w[w.scope.eq('ALL')]
     pre=wg.set_index('window').loc['local_baseline'];launch=wg.set_index('window').loc['launch']
