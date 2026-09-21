@@ -134,7 +134,7 @@ Analysis 5 looks at how activity and revenue recovered after the service inciden
 
 User activity recovered faster than commercial metrics after the outage.
 
-During the compensation period, returned users reached {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:+.2f}% of the pre-incident baseline, while revenue recovered to {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:+.2f}%. By late September, DAU, paying users and revenue had returned close to their reference levels, but later D30 retention remained below the pre-incident cohort.
+During the compensation period, returned users reached {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:.2f}% of the pre-incident baseline, while revenue recovered to {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:.2f}%. By late September, DAU, paying users and revenue had returned close to their reference levels, but later D30 retention remained below the pre-incident cohort.
 
 ## Method
 
@@ -154,13 +154,13 @@ A recovery index of 100 matches the pre-incident reference.
 
 | Stage | DAU index | Paying-user index | Revenue index | Returned-user index |
 |---|---:|---:|---:|---:|
-| Pre-incident baseline | {stage_idx.loc['pre_incident_baseline','dau_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','pu_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','revenue_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','returned_users_recovery_index']:+.2f} |
+| Pre-incident baseline | {stage_idx.loc['pre_incident_baseline','dau_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','pu_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','revenue_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','returned_users_recovery_index']:.2f} |
 | Full outage | {stage_idx.loc['full_outage','dau_recovery_index']:.2f} | {stage_idx.loc['full_outage','pu_recovery_index']:.2f} | {stage_idx.loc['full_outage','revenue_recovery_index']:.2f} | {stage_idx.loc['full_outage','returned_users_recovery_index']:.2f} |
-| Partial restoration | {stage_idx.loc['partial_restoration','dau_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','pu_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','revenue_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','returned_users_recovery_index']:+.2f} |
-| Delayed response | {stage_idx.loc['delayed_response','dau_recovery_index']:.2f} | {stage_idx.loc['delayed_response','pu_recovery_index']:.2f} | {stage_idx.loc['delayed_response','revenue_recovery_index']:.2f} | {stage_idx.loc['delayed_response','returned_users_recovery_index']:+.2f} |
-| Compensation | {stage_idx.loc['extraordinary_compensation','dau_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','pu_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:+.2f} |
-| Remediation | {stage_idx.loc['postmortem_remediation','dau_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','pu_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','revenue_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','returned_users_recovery_index']:+.2f} |
-| Late September | {stage_idx.loc['residual_post_recovery','dau_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','pu_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','revenue_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','returned_users_recovery_index']:+.2f} |
+| Partial restoration | {stage_idx.loc['partial_restoration','dau_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','pu_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','revenue_recovery_index']:.2f} | {stage_idx.loc['partial_restoration','returned_users_recovery_index']:.2f} |
+| Delayed response | {stage_idx.loc['delayed_response','dau_recovery_index']:.2f} | {stage_idx.loc['delayed_response','pu_recovery_index']:.2f} | {stage_idx.loc['delayed_response','revenue_recovery_index']:.2f} | {stage_idx.loc['delayed_response','returned_users_recovery_index']:.2f} |
+| Compensation | {stage_idx.loc['extraordinary_compensation','dau_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','pu_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','revenue_recovery_index']:.2f} | {stage_idx.loc['extraordinary_compensation','returned_users_recovery_index']:.2f} |
+| Remediation | {stage_idx.loc['postmortem_remediation','dau_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','pu_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','revenue_recovery_index']:.2f} | {stage_idx.loc['postmortem_remediation','returned_users_recovery_index']:.2f} |
+| Late September | {stage_idx.loc['residual_post_recovery','dau_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','pu_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','revenue_recovery_index']:.2f} | {stage_idx.loc['residual_post_recovery','returned_users_recovery_index']:.2f} |
 
 Activity recovered first. Compensation produced a large return spike, but payment and revenue recovery remained much lower during the same period.
 
