@@ -37,8 +37,8 @@ I also compared 7-, 14- and 28-day baselines for the subscription and compensati
 | Subscription | 14 days | None | +13.02% | +50.13% | +63.19% | +15.68% |
 | Subscription | 28 days | Spring Content Gap | +10.19% | +58.58% | +72.34% | +34.54% |
 | Compensation | 7 days | None | -6.54% | -42.99% | -43.22% | +190.69% |
-| Compensation | 14 days | Astra Crossover | -8.27% | -47.29% | -54.00% | +180.45% |
-| Compensation | 28 days | Astra Crossover | -6.80% | -53.53% | -69.65% | +140.59% |
+| Compensation | 14 days | Astra Heroes Crossover | -8.27% | -47.29% | -54.00% | +180.45% |
+| Compensation | 28 days | Astra Heroes Crossover | -6.80% | -53.53% | -69.65% | +140.59% |
 
 Baseline choice changes the size of the result, especially when longer windows include another event. The overall direction remains the same.
 
