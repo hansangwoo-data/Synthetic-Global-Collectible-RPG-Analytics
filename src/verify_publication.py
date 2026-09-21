@@ -15,10 +15,10 @@ def verify_readmes():
     verify_evidence(check=True)
     claims={key:float(value) for key,value in re.findall(
         r'\| ([a-z0-9_]+) \| (-?[0-9.]+) \|',
-        (ROOT/'docs/verified_claims.md').read_text())}
+        (ROOT/'docs/verified_claims.md').read_text(encoding='utf-8'))}
     for name in ['README.md','README_KR.md']:
         count=0
-        for line in (ROOT/name).read_text().splitlines():
+        for line in (ROOT/name).read_text(encoding='utf-8').splitlines():
             for key,value in re.findall(r'claim:([a-z0-9_]+):(-?[0-9.]+)',line):
                 if claims[key] != float(value):
                     raise AssertionError(f'{name}: stale {key}')
@@ -32,7 +32,7 @@ def verify_readmes():
 
 def verify_notebook():
     notebook=ROOT/'notebooks/game_user_behavior_analysis.ipynb'
-    cells=json.loads(notebook.read_text())['cells']
+    cells=json.loads(notebook.read_text(encoding='utf-8'))['cells']
     namespace={'__name__':'__notebook__'}
     count=0
     for i,cell in enumerate(cells):
