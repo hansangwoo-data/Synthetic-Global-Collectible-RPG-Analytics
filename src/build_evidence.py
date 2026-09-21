@@ -292,9 +292,6 @@ minimum detectable effect and dependence-aware analysis.
     add('compensation_revenue_index',comp.revenue_recovery_index)
     add('residual_d30_change_pp',final.set_index('scope').loc['ALL','d30_change_pp'])
     scope = '\n> All figures are synthetic scenario comparisons. Legacy D30 means a nested checkpoint proxy, not session-based exact-day retention. Recovery indices compare reference windows, not matched individual outcomes or trust.\n\n'
-    doc4 = doc4.replace('\n\n', '\n'+scope, 1)
-    doc5 = doc5.replace('\n\n', '\n'+scope, 1)
-    doc6 = doc6.replace('\n\n', '\n'+scope, 1)
     return {'docs/findings/analysis_04_monetization.md':doc4,'docs/findings/analysis_05_incident.md':doc5,
         'docs/findings/analysis_06_regional_strategy.md':doc6,'docs/sensitivity.md':docsen,
         'docs/verified_claims.md':header+'# Recomputed headline claims\n\nSource: the checked-in six CSVs. Rebuild with `python -m src.build_evidence`.\n\n'+table(pd.DataFrame(claims))+'\n'}
