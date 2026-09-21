@@ -177,7 +177,7 @@ The regional results below use the late-September recovery stage, with D30 compa
 | Region | DAU index | Paying-user index | Revenue index | D30 change |
 |---|---:|---:|---:|---:|
 | KR | {final_idx.loc['KR','dau_recovery_index']:.2f} | {final_idx.loc['KR','pu_recovery_index']:.2f} | {final_idx.loc['KR','revenue_recovery_index']:.2f} | {final_idx.loc['KR','d30_change_pp']:+.2f} pp |
-| JP | {final_idx.loc['JP','dau_recovery_index']:+.2f} | {final_idx.loc['JP','pu_recovery_index']:+.2f} | {final_idx.loc['JP','revenue_recovery_index']:+.2f} | {final_idx.loc['JP','d30_change_pp']:+.2f} pp |
+| JP | {final_idx.loc['JP','dau_recovery_index']:.2f} | {final_idx.loc['JP','pu_recovery_index']:.2f} | {final_idx.loc['JP','revenue_recovery_index']:.2f} | {final_idx.loc['JP','d30_change_pp']:+.2f} pp |
 | Global West | {final_idx.loc['GLOBAL_WEST','dau_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','pu_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','revenue_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','d30_change_pp']:+.2f} pp |
 
 All three regions recovered the daily operational metrics by late September.
