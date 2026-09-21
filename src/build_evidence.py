@@ -71,10 +71,10 @@ February is kept as a secondary historical reference.
 | Metric | Baseline | Launch |
 |---|---:|---:|
 | Paying users per day | {pre.pu_per_day:,.2f} | {launch.pu_per_day:,.2f} |
-| Conversion rate | {pre.conversion_rate*100:+.2f}% | {launch.conversion_rate*100:+.2f}% |
-| Revenue per service payer-day | ${pre.revenue_per_payer_day:+.2f} | ${launch.revenue_per_payer_day:+.2f} |
+| Conversion rate | {pre.conversion_rate*100:.2f}% | {launch.conversion_rate*100:.2f}% |
+| Revenue per service payer-day | ${pre.revenue_per_payer_day:.2f} | ${launch.revenue_per_payer_day:.2f} |
 
-Revenue per day increased by {bg.launch_revenue_per_day_change_pct:+.2f}%, while paying users per day increased by {bg.launch_pu_per_day_change_pct:+.2f}%.
+Revenue per day increased by {bg.launch_revenue_per_day_change_pct:.2f}%, while paying users per day increased by {bg.launch_pu_per_day_change_pct:.2f}%.
 
 The new subscription contributed about 25% of the total revenue increase. Most of the lift came from higher revenue in existing products.
 
@@ -385,8 +385,10 @@ def main(check=False):
     for filename,content in render().items():
         path=project_root()/filename
         if check:
-            if not path.exists() or path.read_text()!=content:raise ValueError(f'Stale evidence: {filename}')
-        else:path.write_text(content)
+           if not path.exists() or path.read_text(encoding='utf-8') != content:
+               raise ValueError(f'Stale evidence: {filename}')
+           else:
+               path.write_text(content, encoding='utf-8')
     print('Evidence documents match computed results' if check else 'Evidence documents regenerated')
 
 if __name__=='__main__':
