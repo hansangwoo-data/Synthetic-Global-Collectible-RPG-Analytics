@@ -207,7 +207,7 @@ Close the daily incident response only after activity, payer and revenue targets
 
 For future incidents, connect outage exposure, compensation, return and payment activity at the user level.
 '''
-        ev_idx = ev.set_index('region')
+    ev_idx = ev.set_index('region')
 
     doc6=f'''# Analysis 6: Regional Comparison
 
