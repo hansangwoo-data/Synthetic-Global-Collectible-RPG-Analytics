@@ -209,71 +209,53 @@ Close the daily incident response only after activity, payer and revenue targets
 
 For future incidents, connect outage exposure, compensation, return and payment activity at the user level.
 '''
-    doc6=header+'''# Analysis 6: Regional Decisions
+        ev_idx = ev.set_index('region')
 
-## Decision
+    doc6=f'''# Analysis 6: Regional Comparison
 
-Use shared measurement and reversible tests, then prioritize regional diagnostics.
-The original JP-only launch-warning claim is withdrawn after the payer audit:
-all regions breach both launch and post-14 adjacent-offer guardrails. No composite
-score combines revenue, retention points and participation indices.
+> This analysis uses synthetic scenario data and summarizes the main regional differences from Analyses 1–5.
 
-## Evidence
+## Summary
+
+All three regions show the same broad risks: weaker Astra D30 retention, lower boss participation, and weaker adjacent-offer revenue per payer after the subscription launch.
+
+The size of those changes differs by region. Global West shows the strongest subscription revenue growth but also the largest adjacent-offer decline and post-incident D30 gap. KR shows the weakest NRU recovery index, while JP shows the strongest Fantasy-context D30 improvement.
+
+## Regional comparison
 
 ![Regional evidence](../../images/regional_cross_analysis_evidence.png)
 
-'''+table(ev,['region','fantasy_d30_change_pp','astra_d30_change_pp','astra_normal_participation_index','bm_launch_revenue_change_pct','bm_adjacent_launch_change_pct','bm_adjacent_post_14_change_pct','incident_nru_recovery_index','incident_d30_change_pp'])+'''
+| Region | Fantasy D30 | Astra D30 | Astra boss entry index | Subscription revenue | Adjacent post-launch | Post-incident D30 |
+|---|---:|---:|---:|---:|---:|---:|
+| KR | {ev_idx.loc['KR','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['KR','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['KR','astra_normal_participation_index']:.2f} | {ev_idx.loc['KR','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['KR','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['KR','incident_d30_change_pp']:+.2f} pp |
+| JP | {ev_idx.loc['JP','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['JP','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['JP','astra_normal_participation_index']:.2f} | {ev_idx.loc['JP','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['JP','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['JP','incident_d30_change_pp']:+.2f} pp |
+| Global West | {ev_idx.loc['GLOBAL_WEST','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['GLOBAL_WEST','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['GLOBAL_WEST','astra_normal_participation_index']:.2f} | {ev_idx.loc['GLOBAL_WEST','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['GLOBAL_WEST','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['GLOBAL_WEST','incident_d30_change_pp']:+.2f} pp |
 
-Within this synthetic comparison, KR has the lowest NRU reference index, so acquisition mix is an investigation
-priority; channel causes and CAC are unobserved. JP has the largest Fantasy-context D30 checkpoint difference in this scenario, but no longer has a unique offer-warning mechanism. Global West
-combines the strongest launch-revenue response with the largest launch adjacency
-and later new-cohort D30 checkpoint gaps; additional spend should await quality diagnostics.
-
-## Guardrails
+## Shared findings
 
 ![Guardrails](../../images/regional_guardrail_matrix.png)
 
-'''+table(guard,['guardrail_label','region','value','status'])+'''
+- Astra D30 retention is below the warning threshold in all three regions.
+- Astra boss participation is below the reference threshold in all three regions.
+- Adjacent-offer revenue per payer declines after subscription launch in all three regions.
+- Daily operational metrics recover after the incident in all three regions.
+- Post-incident D30 remains below the June reference in all three regions.
 
-Equality semantics match source analyses: D30 at -1 pp and adjacency at -5%
-are warnings; entry at 90 and residual D30 at -0.5 pp pass. Five checks warn in
-all regions under the published payer assumption; daily operational exits pass.
-These authored thresholds are not industry standards or statistical significance.
+These shared patterns support common measurement and testing across regions before applying region-specific changes.
 
-## Actions
+## Regional focus
 
-'''+table(actions,['scope','priority','theme','action','evidence'])+'''
+**KR:** Check acquisition mix and boss-entry eligibility first. KR has the lowest NRU recovery index and a similar Astra entry gap to the other regions.
 
-Low boss entry plus normal participant outcomes supports an entry hypothesis;
-it does not locate individual dropout or rule out power-based selection.
-Likewise, service-cohort D30 does not trace incident survivors. Follow the
-[decision plan](../decision_plan.md), including telemetry, experimental unit,
-primary outcome, guardrails and the decision that would change.
-'''
-    docsen=header+'''# Sensitivity to Baselines and Payer Assumptions
+**JP:** Monitor offer differentiation and retention. JP has the strongest Fantasy-context D30 improvement, but still shows the same Astra entry and adjacent-offer warnings.
 
-## Payer overlap is not identified
+**Global West**: Review acquisition quality and offer mix before scaling further. It has the strongest subscription revenue growth, but also the largest adjacent-offer decline and post-incident D30 gap.
 
-For each date-region, a feasible union lies between maximum(product purchasers)
-and min(DAU, sum(product purchasers)). The published rule caps the original demand
-target to that interval. Alternative extremes below are not estimates of real
-buyer overlap. Even a feasible synthetic payer count does not validate behavior.
+## Next step
 
-'''+table(payer,['scope','payer_assumption','launch_pu_per_day_change_pct','adjacent_launch_revenue_per_payer_day_change_pct','adjacent_post_14_revenue_per_payer_day_change_pct','outcome'])+'''
+Use the same core measurements across all three regions, then adjust experiments based on the regional differences above.
 
-## Baseline choice changes magnitude
-
-Seven, fourteen and twenty-eight day references are shown without silently
-removing unfavorable event overlaps. Incident references end before the outage.
-The primary operational baseline remains the 12 clean days in the specification.
-
-'''+table(base,['context','baseline_days','baseline_start','baseline_end','overlaps','metric','change_pct'])+'''
-
-These checks test stability under alternative assumptions. They are not causal
-controls or uncertainty intervals. Generated rates were authored rather than
-estimated from independent user observations, so inferential claims would add
-false precision. A real deployment needs assignment/exposure logs, a planned
-minimum detectable effect and dependence-aware analysis.
+See the [decision plan](../decision_plan.md) for the proposed tests.
 '''
     claims=[]
     def add(name,value):claims.append({'metric':name,'value':float(value)})
