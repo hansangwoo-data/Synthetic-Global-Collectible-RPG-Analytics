@@ -154,7 +154,7 @@ A recovery index of 100 matches the pre-incident reference.
 
 | Stage | DAU index | Paying-user index | Revenue index | Returned-user index |
 |---|---:|---:|---:|---:|
-| Pre-incident baseline | {stage_idx.loc['pre_incident_baseline','dau_recovery_index']:+.2f} | {stage_idx.loc['pre_incident_baseline','pu_recovery_index']:+.2f} | {stage_idx.loc['pre_incident_baseline','revenue_recovery_index']:+.2f} | {stage_idx.loc['pre_incident_baseline','returned_users_recovery_index']:+.2f} |
+| Pre-incident baseline | {stage_idx.loc['pre_incident_baseline','dau_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','pu_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','revenue_recovery_index']:.2f} | {stage_idx.loc['pre_incident_baseline','returned_users_recovery_index']:+.2f} |
 | Full outage | {stage_idx.loc['full_outage','dau_recovery_index']:+.2f} | {stage_idx.loc['full_outage','pu_recovery_index']:+.2f} | {stage_idx.loc['full_outage','revenue_recovery_index']:+.2f} | {stage_idx.loc['full_outage','returned_users_recovery_index']:+.2f} |
 | Partial restoration | {stage_idx.loc['partial_restoration','dau_recovery_index']:+.2f} | {stage_idx.loc['partial_restoration','pu_recovery_index']:+.2f} | {stage_idx.loc['partial_restoration','revenue_recovery_index']:+.2f} | {stage_idx.loc['partial_restoration','returned_users_recovery_index']:+.2f} |
 | Delayed response | {stage_idx.loc['delayed_response','dau_recovery_index']:+.2f} | {stage_idx.loc['delayed_response','pu_recovery_index']:+.2f} | {stage_idx.loc['delayed_response','revenue_recovery_index']:+.2f} | {stage_idx.loc['delayed_response','returned_users_recovery_index']:+.2f} |
@@ -178,7 +178,7 @@ The regional results below use the late-September recovery stage, with D30 compa
 |---|---:|---:|---:|---:|
 | KR | {final_idx.loc['KR','dau_recovery_index']:.2f} | {final_idx.loc['KR','pu_recovery_index']:.2f} | {final_idx.loc['KR','revenue_recovery_index']:.2f} | {final_idx.loc['KR','d30_change_pp']:+.2f} pp |
 | JP | {final_idx.loc['JP','dau_recovery_index']:+.2f} | {final_idx.loc['JP','pu_recovery_index']:+.2f} | {final_idx.loc['JP','revenue_recovery_index']:+.2f} | {final_idx.loc['JP','d30_change_pp']:+.2f} pp |
-| Global West | {final_idx.loc['GLOBAL_WEST','dau_recovery_index']:+.2f} | {final_idx.loc['GLOBAL_WEST','pu_recovery_index']:+.2f} | {final_idx.loc['GLOBAL_WEST','revenue_recovery_index']:+.2f} | {final_idx.loc['GLOBAL_WEST','d30_change_pp']:+.2f} pp |
+| Global West | {final_idx.loc['GLOBAL_WEST','dau_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','pu_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','revenue_recovery_index']:.2f} | {final_idx.loc['GLOBAL_WEST','d30_change_pp']:+.2f} pp |
 
 All three regions recovered the daily operational metrics by late September.
 
@@ -225,9 +225,9 @@ The size of those changes differs by region. Global West shows the strongest sub
 
 | Region | Fantasy D30 | Astra D30 | Astra boss entry index | Subscription revenue | Adjacent post-launch | Post-incident D30 |
 |---|---:|---:|---:|---:|---:|---:|
-| KR | {ev_idx.loc['KR','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['KR','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['KR','astra_normal_participation_index']:+.2f} | {ev_idx.loc['KR','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['KR','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['KR','incident_d30_change_pp']:+.2f} pp |
-| JP | {ev_idx.loc['JP','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['JP','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['JP','astra_normal_participation_index']:+.2f} | {ev_idx.loc['JP','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['JP','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['JP','incident_d30_change_pp']:+.2f} pp |
-| Global West | {ev_idx.loc['GLOBAL_WEST','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['GLOBAL_WEST','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['GLOBAL_WEST','astra_normal_participation_index']:+.2f} | {ev_idx.loc['GLOBAL_WEST','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['GLOBAL_WEST','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['GLOBAL_WEST','incident_d30_change_pp']:+.2f} pp |
+| KR | {ev_idx.loc['KR','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['KR','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['KR','astra_normal_participation_index']:.2f} | {ev_idx.loc['KR','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['KR','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['KR','incident_d30_change_pp']:+.2f} pp |
+| JP | {ev_idx.loc['JP','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['JP','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['JP','astra_normal_participation_index']:.2f} | {ev_idx.loc['JP','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['JP','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['JP','incident_d30_change_pp']:+.2f} pp |
+| Global West | {ev_idx.loc['GLOBAL_WEST','fantasy_d30_change_pp']:+.2f} pp | {ev_idx.loc['GLOBAL_WEST','astra_d30_change_pp']:+.2f} pp | {ev_idx.loc['GLOBAL_WEST','astra_normal_participation_index']:.2f} | {ev_idx.loc['GLOBAL_WEST','bm_launch_revenue_change_pct']:+.2f}% | {ev_idx.loc['GLOBAL_WEST','bm_adjacent_post_14_change_pct']:+.2f}% | {ev_idx.loc['GLOBAL_WEST','incident_d30_change_pp']:+.2f} pp |
 
 ## Shared findings
 
