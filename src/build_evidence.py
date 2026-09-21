@@ -382,13 +382,14 @@ For a real service, user-level purchase, exposure and assignment data would be n
 
 
 def main(check=False):
-    for filename,content in render().items():
-        path=project_root()/filename
+    for filename, content in render().items():
+        path = project_root() / filename
         if check:
-           if not path.exists() or path.read_text(encoding='utf-8') != content:
-               raise ValueError(f'Stale evidence: {filename}')
-           else:
-               path.write_text(content, encoding='utf-8')
+            if not path.exists() or path.read_text(encoding='utf-8') != content:
+                raise ValueError(f'Stale evidence: {filename}')
+        else:
+            path.write_text(content, encoding='utf-8')
+
     print('Evidence documents match computed results' if check else 'Evidence documents regenerated')
 
 if __name__=='__main__':
